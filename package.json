@@ -1,13 +1,16 @@
 {
-  "name": "blog-web-app-header",
+  "name": "root",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified Surface\" && exit 1",
-    "prepare": "husky"
+    "prepare": "husky && npm --prefix surface-for-testing-purpose install && npm --prefix microfrontend-module install",
+    "surface": "npm --prefix surface-for-testing-purpose run dev",
+    "microfrontend": "npm --prefix microfrontend-module run start"
   },
   "workspaces": [
-    "microfrontend-module"
+    "microfrontend-module",
+    "surface-for-testing-purpose"
   ],
   "repository": {
     "type": "git",

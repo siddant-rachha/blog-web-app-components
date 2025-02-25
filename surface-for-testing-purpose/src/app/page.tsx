@@ -1,3 +1,12 @@
+import { Microfrontend } from 'blog-web-app-header';
 export default function Home() {
-  return <div>Testing surface</div>;
+  return (
+    <div>
+      <h1>Testing Surface</h1>
+      <div>
+        <h3>Microfrontend Container</h3>
+        <Microfrontend text="I am Nextjs Suface" />
+      </div>
+    </div>
+  );
 }
