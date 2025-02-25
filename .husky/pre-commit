@@ -1,0 +1,11 @@
+cd microfrontend-module
+npm test
+npm run lint
+npm run format
+npm run build
+
+cd ..
+cd surface-for-testing-purpose
+npm test
+npm run lint
+npm run format

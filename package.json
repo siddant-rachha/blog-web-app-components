@@ -1,0 +1,27 @@
+{
+  "name": "blog-web-app-header",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified Surface\" && exit 1",
+    "prepare": "husky"
+  },
+  "workspaces": [
+    "microfrontend-module"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siddant-rachha/blog-web-app-header.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siddant-rachha/blog-web-app-header/issues"
+  },
+  "homepage": "https://github.com/siddant-rachha/blog-web-app-header#readme",
+  "description": "",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}
