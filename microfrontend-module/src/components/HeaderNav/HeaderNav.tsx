@@ -15,7 +15,7 @@ const navItems = ['Home', 'About', 'Contact'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 type Props = {
-  children: React.ReactNode;
+  children: React.ReactNode | null;
 };
 
 export const HeaderNav: React.FC<Props> = ({ children }) => {

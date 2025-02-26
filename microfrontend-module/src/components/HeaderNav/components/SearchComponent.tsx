@@ -1,5 +1,9 @@
-import React from 'react';
-import { alpha, styled } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import { alpha, styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -44,6 +48,30 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const SearchComponent = () => {
+  const [isListOpen, setListOpen] = useState(true);
+  const boxRef = useRef<HTMLDivElement | null>(null);
+  const [boxPosition, setBoxPosition] = useState({ x: 0 });
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
+      setListOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (boxRef.current) {
+      const xPosition = boxRef.current.getBoundingClientRect().x;
+      setBoxPosition({ x: -xPosition });
+    }
+  }, []);
+
   return (
     <Search>
       <SearchIconWrapper>
@@ -53,6 +81,33 @@ export const SearchComponent = () => {
         placeholder="Search…"
         inputProps={{ 'aria-label': 'search' }}
       />
+      <Box
+        ref={boxRef}
+        sx={{
+          position: 'absolute',
+          width: '100vw',
+          maxWidth: '1280px',
+          mt: { xs: 1, sm: 2 },
+          left: boxPosition.x,
+          display: isListOpen ? 'block' : 'none',
+        }}
+      >
+        <List
+          sx={{
+            width: '100%',
+            bgcolor: 'rgba(220, 220, 220, 0.8)',
+          }}
+        >
+          {[1, 2, 3].map(value => (
+            <ListItem key={value}>
+              <ListItemText
+                primary={`Line item ${value}`}
+                sx={{ color: 'black', cursor: 'pointer' }}
+              />
+            </ListItem>
+          ))}
+        </List>
+      </Box>
     </Search>
   );
 };
