@@ -16,7 +16,7 @@
     "lint": "eslint",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
-    "start": "tsc --watch"
+    "dev": "tsc --watch"
   },
   "files": [
     "dist"

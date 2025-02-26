@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified Surface\" && exit 1",
-    "prepare": "husky && npm --prefix surface-for-testing-purpose install && npm --prefix microfrontend-module install",
-    "surface": "npm --prefix surface-for-testing-purpose run dev",
-    "microfrontend": "npm --prefix microfrontend-module run start"
+    "prepare": "husky",
+    "postprepare": "npm --prefix surface-for-testing-purpose install && npm --prefix microfrontend-module install",
+    "dev": "npm --prefix surface-for-testing-purpose run dev",
+    "mf": "npm --prefix microfrontend-module run dev && --prefix microfrontend-module yalc push --watch",
+    "publish-mf-local": "cd microfrontend-module && yalc publish && cd .. && cd surface-for-testing-purpose && yalc add blog-web-app-header && cd .. && npm i"
   },
   "workspaces": [
     "microfrontend-module",
@@ -25,6 +27,10 @@
   "homepage": "https://github.com/siddant-rachha/blog-web-app-header#readme",
   "description": "",
   "devDependencies": {
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "yalc": "^1.0.0-pre.53"
+  },
+  "dependencies": {
+    "blog-web-app-header": "file:.yalc/blog-web-app-header"
   }
 }
