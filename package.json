@@ -5,10 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified Surface\" && exit 1",
     "prepare": "husky",
-    "postprepare": "npm --prefix surface-for-testing-purpose install && npm --prefix microfrontend-module install",
     "dev": "npm --prefix surface-for-testing-purpose run dev",
-    "mf": "npm --prefix microfrontend-module run dev && --prefix microfrontend-module yalc push --watch",
-    "publish-mf-local": "cd microfrontend-module && yalc publish && cd .. && cd surface-for-testing-purpose && yalc add blog-web-app-header && cd .. && npm i"
+    "mf": "npm --prefix microfrontend-module run dev",
+    "clean": "rm -rf node_modules && rm -rf package-lock.json && cd microfrontend-module && rm -rf node_modules && rm -rf package-lock.json && rm -rf dist && cd .. && cd surface-for-testing-purpose && rm -rf node_modules && rm -rf package-lock.json && rm -rf .next"
   },
   "workspaces": [
     "microfrontend-module",

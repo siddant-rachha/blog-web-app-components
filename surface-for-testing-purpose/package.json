@@ -12,7 +12,9 @@
     "test": "echo \"Error: no test specified for Surface\""
   },
   "dependencies": {
-    "blog-web-app-header": "file:.yalc/blog-web-app-header",
+    "@emotion/cache": "^11.14.0",
+    "@mui/material-nextjs": "^6.4.3",
+    "blog-web-app-header": "file:../microfrontend-module",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

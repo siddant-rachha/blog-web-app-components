@@ -1,4 +1,6 @@
+// import { Microfrontend } from 'blog-web-app-header';
 import { Microfrontend } from 'blog-web-app-header';
+
 export default function Home() {
   return (
     <div>

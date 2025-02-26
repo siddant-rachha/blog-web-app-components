@@ -1,9 +1,0 @@
-{
-  "version": "v1",
-  "packages": {
-    "blog-web-app-header": {
-      "signature": "1f20a83b6455a98fee52f79172e99368",
-      "file": true
-    }
-  }
-}

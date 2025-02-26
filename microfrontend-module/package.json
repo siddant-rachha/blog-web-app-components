@@ -26,6 +26,9 @@
   "license": "ISC",
   "description": "",
   "peerDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.4.5",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "react": "^19.0.0",
@@ -33,7 +36,10 @@
     "typescript": "^5.7.3"
   },
   "devDependencies": {
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
     "@eslint/js": "^9.21.0",
+    "@mui/material": "*",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "eslint": "^9.21.0",
