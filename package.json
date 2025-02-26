@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified Surface\" && exit 1",
     "prepare": "husky",
-    "dev": "npm --prefix surface-for-testing-purpose run dev",
+    "surface": "npm --prefix surface-for-testing-purpose run dev",
     "mf": "npm --prefix microfrontend-module run dev",
     "clean": "rm -rf node_modules && rm -rf package-lock.json && cd microfrontend-module && rm -rf node_modules && rm -rf package-lock.json && rm -rf dist && cd .. && cd surface-for-testing-purpose && rm -rf node_modules && rm -rf package-lock.json && rm -rf .next"
   },
@@ -26,10 +26,6 @@
   "homepage": "https://github.com/siddant-rachha/blog-web-app-header#readme",
   "description": "",
   "devDependencies": {
-    "husky": "^9.1.7",
-    "yalc": "^1.0.0-pre.53"
-  },
-  "dependencies": {
-    "blog-web-app-header": "file:.yalc/blog-web-app-header"
+    "husky": "^9.1.7"
   }
 }
