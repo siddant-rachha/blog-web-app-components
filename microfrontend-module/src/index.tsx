@@ -1,3 +1,3 @@
-import { HeaderNav } from './components/HeaderNav';
+import { HeaderNav } from './components/HeaderNav/HeaderNav';
 
 export { HeaderNav };
