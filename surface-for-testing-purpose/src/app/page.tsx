@@ -4,7 +4,9 @@ import { HeaderNav } from 'blog-web-app-header';
 export default function Home() {
   return (
     <div>
-      <HeaderNav />
+      <HeaderNav>
+        <div>test</div>
+      </HeaderNav>
     </div>
   );
 }
