@@ -47,8 +47,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: '100%',
 }));
 
-export const SearchComponent = () => {
-  const [isListOpen, setListOpen] = useState(true);
+type Props = {
+  handleSearchItem: (item: string) => void;
+  searchItems: string[];
+  handleSearch: (item: string) => void;
+};
+
+export const SearchComponent: React.FC<Props> = ({
+  handleSearchItem,
+  searchItems,
+  handleSearch,
+}) => {
+  const [isListOpen, setListOpen] = useState(false);
   const boxRef = useRef<HTMLDivElement | null>(null);
   const [boxPosition, setBoxPosition] = useState({ x: 0 });
 
@@ -56,6 +66,11 @@ export const SearchComponent = () => {
     if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
       setListOpen(false);
     }
+  };
+
+  const handleSearchItemClick = (item: string) => {
+    handleSearchItem(item);
+    setListOpen(false);
   };
 
   useEffect(() => {
@@ -70,7 +85,7 @@ export const SearchComponent = () => {
       const xPosition = boxRef.current.getBoundingClientRect().x;
       setBoxPosition({ x: -xPosition });
     }
-  }, []);
+  }, [isListOpen]);
 
   return (
     <Search>
@@ -80,6 +95,12 @@ export const SearchComponent = () => {
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ 'aria-label': 'search' }}
+        onClick={() => {
+          setListOpen(true);
+        }}
+        onChange={e => {
+          handleSearch(e.target.value);
+        }}
       />
       <Box
         ref={boxRef}
@@ -95,14 +116,18 @@ export const SearchComponent = () => {
         <List
           sx={{
             width: '100%',
-            bgcolor: 'rgba(220, 220, 220, 0.8)',
+            bgcolor: 'rgba(220, 220, 220)',
+            maxHeight: '25vh',
+            overflow: 'scroll',
           }}
         >
-          {[1, 2, 3].map(value => (
-            <ListItem key={value}>
+          {searchItems.map((value, i) => (
+            <ListItem key={i}>
               <ListItemText
-                primary={`Line item ${value}`}
+                primary={value}
                 sx={{ color: 'black', cursor: 'pointer' }}
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                onClick={e => handleSearchItemClick(value)}
               />
             </ListItem>
           ))}

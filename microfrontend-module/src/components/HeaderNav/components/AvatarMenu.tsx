@@ -9,9 +9,13 @@ import Avatar from '@mui/material/Avatar';
 
 type Props = {
   menuItems: string[];
+  handleAvatarItem: (item: string) => void;
 };
 
-export const AvatarMenu: React.FC<Props> = ({ menuItems }) => {
+export const AvatarMenu: React.FC<Props> = ({
+  menuItems,
+  handleAvatarItem,
+}) => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -24,11 +28,15 @@ export const AvatarMenu: React.FC<Props> = ({ menuItems }) => {
     setAnchorElUser(null);
   };
 
+  const handleAvatarItemClick = (item: string) => {
+    handleAvatarItem(item);
+  };
+
   return (
     <Box sx={{ flexGrow: 0, marginLeft: 'auto' }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenMenu} sx={{ p: 0 }}>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+          <Avatar alt="Avatar" src="." />
         </IconButton>
       </Tooltip>
       <Menu
@@ -48,7 +56,12 @@ export const AvatarMenu: React.FC<Props> = ({ menuItems }) => {
         onClose={handleCloseMenu}
       >
         {menuItems.map(item => (
-          <MenuItem key={item} onClick={handleCloseMenu}>
+          <MenuItem
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            onClickCapture={e => handleAvatarItemClick(item)}
+            key={item}
+            onClick={handleCloseMenu}
+          >
             <Typography sx={{ textAlign: 'center' }}>{item}</Typography>
           </MenuItem>
         ))}

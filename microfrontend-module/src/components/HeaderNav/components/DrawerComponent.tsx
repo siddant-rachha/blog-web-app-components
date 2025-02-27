@@ -6,21 +6,29 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import Typography from '@mui/material/Typography';
 
 type Props = {
   navItems: string[];
+  navActive: string;
   drawerWidth: number;
   isDrawerOpen: boolean;
   onDrawerClose: () => void;
+  imgSrc: string;
+  handleNavItem: (item: string) => void;
 };
 
 export const DrawerComponent: React.FC<Props> = ({
   navItems,
+  navActive,
   drawerWidth,
   isDrawerOpen,
   onDrawerClose,
+  imgSrc,
+  handleNavItem,
 }) => {
+  const handleNavItemClick = (item: string) => {
+    handleNavItem(item);
+  };
   return (
     <nav>
       <Drawer
@@ -38,15 +46,29 @@ export const DrawerComponent: React.FC<Props> = ({
         }}
       >
         <Box onClick={onDrawerClose} sx={{ textAlign: 'center' }}>
-          <Typography variant="h6" sx={{ my: 2 }}>
-            MUI
-          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <img src={imgSrc} alt="Logo" height={50} />
+          </Box>
           <Divider />
           <List>
             {navItems.map(item => (
               <ListItem key={item} disablePadding>
                 <ListItemButton sx={{ textAlign: 'center' }}>
-                  <ListItemText primary={item} />
+                  <ListItemText
+                    primary={item}
+                    onClick={() => handleNavItemClick(item)}
+                    sx={{
+                      borderRadius: 0,
+                      borderBottom:
+                        navActive === item ? `1px solid #1976d2` : null,
+                    }}
+                  />
                 </ListItemButton>
               </ListItem>
             ))}

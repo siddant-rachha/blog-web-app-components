@@ -5,20 +5,36 @@ import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { DrawerComponent } from './components/DrawerComponent';
 import { SearchComponent } from './components/SearchComponent';
 import { AvatarMenu } from './components/AvatarMenu';
 import { NavBarItems } from './components/NavBarItems';
 
-const navItems = ['Home', 'About', 'Contact'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
 type Props = {
   children: React.ReactNode | null;
+  imgSrc: string;
+  navItems: string[];
+  navActive: string;
+  avatarItems: string[];
+  searchItems: string[];
+  handleNavItem: (item: string) => void;
+  handleAvatarItem: (item: string) => void;
+  handleSearchItem: (item: string) => void;
+  handleSearchInput: (item: string) => void;
 };
 
-export const HeaderNav: React.FC<Props> = ({ children }) => {
+export const HeaderNav: React.FC<Props> = ({
+  children,
+  imgSrc = '.',
+  navItems = [],
+  navActive,
+  avatarItems = [],
+  searchItems = [],
+  handleNavItem,
+  handleAvatarItem,
+  handleSearchItem,
+  handleSearchInput,
+}) => {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -42,32 +58,44 @@ export const HeaderNav: React.FC<Props> = ({ children }) => {
           </IconButton>
 
           {/* logo */}
-          <Typography variant="h6" component="div">
-            MUI
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <img src={imgSrc} alt="Logo" height={50} />
+          </Box>
 
           {/* search component */}
-          <SearchComponent />
+          <SearchComponent
+            handleSearchItem={handleSearchItem}
+            searchItems={searchItems}
+            handleSearch={handleSearchInput}
+          />
 
           {/* navbar with item links */}
           <NavBarItems
+            handleNavItem={handleNavItem}
             navItems={navItems}
+            navActive={navActive}
             sx={{
               display: { xs: 'none', sm: 'block' },
             }}
           />
 
           {/* avatar with menu */}
-          <AvatarMenu menuItems={settings} />
+          <AvatarMenu
+            menuItems={avatarItems}
+            handleAvatarItem={handleAvatarItem}
+          />
         </Toolbar>
       </AppBar>
 
-      {/* drawer component */}
+      {/* drawer component for mobile */}
       <DrawerComponent
+        imgSrc={imgSrc}
         navItems={navItems}
+        navActive={navActive}
         drawerWidth={240}
         isDrawerOpen={isDrawerOpen}
         onDrawerClose={handleDrawerToggle}
+        handleNavItem={handleNavItem}
       />
 
       {/* main section */}
