@@ -6,6 +6,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import Paper from '@mui/material/Paper';
 
 type Props = {
   navItems: string[];
@@ -45,12 +46,19 @@ export const DrawerComponent: React.FC<Props> = ({
           },
         }}
       >
-        <Box onClick={onDrawerClose} sx={{ textAlign: 'center' }}>
+        <Paper
+          sx={{ margin: 1, textAlign: 'center' }}
+          variant="elevation"
+          elevation={2}
+          onClick={onDrawerClose}
+        >
           <Box
             sx={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              mb: 1,
+              mt: 1,
             }}
           >
             <img src={imgSrc} alt="Logo" height={50} />
@@ -64,16 +72,17 @@ export const DrawerComponent: React.FC<Props> = ({
                     primary={item}
                     onClick={() => handleNavItemClick(item)}
                     sx={{
+                      padding: '4px',
                       borderRadius: 0,
                       borderBottom:
-                        navActive === item ? `1px solid #1976d2` : null,
+                        navActive === item ? `2px solid gray` : null,
                     }}
                   />
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
-        </Box>
+        </Paper>
       </Drawer>
     </nav>
   );

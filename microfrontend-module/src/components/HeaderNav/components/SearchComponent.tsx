@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { alpha, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import Paper from '@mui/material/Paper';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -113,25 +113,31 @@ export const SearchComponent: React.FC<Props> = ({
           display: isListOpen ? 'block' : 'none',
         }}
       >
-        <List
+        <Paper
+          variant="elevation"
+          elevation={12}
           sx={{
             width: '100%',
-            bgcolor: 'rgba(220, 220, 220)',
-            maxHeight: '25vh',
+            bgcolor: 'rgba(220, 220, 220, 0.9)',
+            maxHeight: '30vh',
             overflow: 'scroll',
           }}
         >
           {searchItems.map((value, i) => (
-            <ListItem key={i}>
+            <ListItem key={i} sx={{ borderBottom: '0.5px solid gray' }}>
               <ListItemText
                 primary={value}
-                sx={{ color: 'black', cursor: 'pointer' }}
+                sx={{
+                  color: 'black',
+                  cursor: 'pointer',
+                  marginLeft: '16px',
+                }}
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 onClick={e => handleSearchItemClick(value)}
               />
             </ListItem>
           ))}
-        </List>
+        </Paper>
       </Box>
     </Search>
   );
