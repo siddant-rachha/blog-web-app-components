@@ -23,7 +23,7 @@ type Props = {
   handleSearchInput: (item: string) => void;
 };
 
-export const HeaderNav: React.FC<Props> = ({
+export const BlogNavContainer: React.FC<Props> = ({
   children,
   imgSrc = '.',
   navItems = [],
@@ -52,14 +52,20 @@ export const HeaderNav: React.FC<Props> = ({
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2 }}
           >
             <MenuIcon />
           </IconButton>
 
           {/* logo */}
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <img src={imgSrc} alt="Logo" height={50} />
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              cursor: 'pointer',
+            }}
+          >
+            <img src={imgSrc} alt="Logo" height={60} />
           </Box>
 
           {/* search component */}
@@ -75,7 +81,7 @@ export const HeaderNav: React.FC<Props> = ({
             navItems={navItems}
             navActive={navActive}
             sx={{
-              display: { xs: 'none', sm: 'block' },
+              display: { xs: 'none', sm: 'none', md: 'block' },
             }}
           />
 
@@ -99,7 +105,7 @@ export const HeaderNav: React.FC<Props> = ({
       />
 
       {/* main section */}
-      <Box component="main" sx={{ p: 3 }}>
+      <Box component="main" width="100%" sx={{ p: 3 }}>
         <Toolbar />
         {children}
       </Box>

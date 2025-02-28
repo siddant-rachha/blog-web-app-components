@@ -24,7 +24,7 @@ export const NavBarItems: React.FC<Props> = ({
         <Button
           key={item}
           sx={{
-            margin: '0 8px 0',
+            margin: { md: '0 8px 0' },
             color: '#fff',
             borderRadius: 0,
             borderBottom: navActive === item ? '2px solid #fff' : null,

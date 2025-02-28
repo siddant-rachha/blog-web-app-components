@@ -7,6 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 type Props = {
   navItems: string[];
@@ -30,6 +31,7 @@ export const DrawerComponent: React.FC<Props> = ({
   const handleNavItemClick = (item: string) => {
     handleNavItem(item);
   };
+
   return (
     <nav>
       <Drawer
@@ -43,13 +45,19 @@ export const DrawerComponent: React.FC<Props> = ({
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: drawerWidth,
+            background: '#f4f6f8',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
           },
         }}
       >
         <Paper
-          sx={{ margin: 1, textAlign: 'center' }}
-          variant="elevation"
-          elevation={2}
+          sx={{
+            m: 2,
+            p: 2,
+            textAlign: 'center',
+            boxShadow: 'none',
+            background: 'transparent',
+          }}
           onClick={onDrawerClose}
         >
           <Box
@@ -57,26 +65,51 @@ export const DrawerComponent: React.FC<Props> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              mb: 1,
-              mt: 1,
+              mb: 2,
+              mt: 2,
             }}
           >
-            <img src={imgSrc} alt="Logo" height={50} />
+            <img
+              src={imgSrc}
+              alt="Logo"
+              height={50}
+              style={{ borderRadius: '50%' }}
+            />
           </Box>
-          <Divider />
+          <Divider sx={{ mb: 2 }} />
           <List>
             {navItems.map(item => (
               <ListItem key={item} disablePadding>
-                <ListItemButton sx={{ textAlign: 'center' }}>
+                <ListItemButton
+                  onClick={() => handleNavItemClick(item)}
+                  sx={{
+                    textAlign: 'center',
+                    borderRadius: 2,
+                    mb: 1,
+                    '&:hover': {
+                      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                    },
+                    backgroundColor:
+                      navActive === item
+                        ? 'rgba(25, 118, 210, 0.1)'
+                        : 'transparent',
+                  }}
+                >
                   <ListItemText
-                    primary={item}
-                    onClick={() => handleNavItemClick(item)}
-                    sx={{
-                      padding: '4px',
-                      borderRadius: 0,
-                      borderBottom:
-                        navActive === item ? `2px solid gray` : null,
-                    }}
+                    primary={
+                      <Typography
+                        variant="subtitle1"
+                        sx={{
+                          color:
+                            navActive === item
+                              ? 'primary.main'
+                              : 'text.primary',
+                          fontWeight: navActive === item ? 'bold' : 'normal',
+                        }}
+                      >
+                        {item}
+                      </Typography>
+                    }
                   />
                 </ListItemButton>
               </ListItem>

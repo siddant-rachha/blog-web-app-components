@@ -23,23 +23,9 @@ export const Filters = () => {
     >
       <FormControl
         fullWidth
-        sx={{ maxWidth: 240, marginRight: 2 }}
+        sx={{ maxWidth: 240, marginRight: 2, minWidth: 80 }}
         size="small"
       >
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl fullWidth sx={{ maxWidth: 240 }} size="small">
         <InputLabel id="demo-simple-select-label">Age</InputLabel>
         <Select
           labelId="demo-simple-select-label"

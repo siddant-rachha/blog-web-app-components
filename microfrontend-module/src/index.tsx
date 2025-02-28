@@ -1,4 +1,6 @@
-import { HeaderNav } from './components/HeaderNav/HeaderNav';
-import { CardList } from './components/CardList/CardList';
+import { BlogNavContainer } from './components/BlogNavContainer/BlogNavContainer';
+import { BlogList } from './components/BlogList/BlogList';
+import { BlogForm } from './components/BlogForm/BlogForm';
+import { BlogPage } from './components/BlogPage/BlogPage';
 
-export { HeaderNav, CardList };
+export { BlogList, BlogForm, BlogNavContainer, BlogPage };

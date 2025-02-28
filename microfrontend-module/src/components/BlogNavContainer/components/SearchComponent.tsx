@@ -118,7 +118,7 @@ export const SearchComponent: React.FC<Props> = ({
           elevation={12}
           sx={{
             width: '100%',
-            bgcolor: 'rgba(220, 220, 220, 0.9)',
+            bgcolor: 'rgba(255, 255, 255, 0.9)',
             maxHeight: '30vh',
             overflow: 'scroll',
           }}

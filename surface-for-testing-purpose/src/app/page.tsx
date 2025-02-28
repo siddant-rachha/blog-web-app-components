@@ -1,6 +1,11 @@
 'use client';
 import { Box } from '@mui/material';
-import { HeaderNav, CardList } from 'blog-web-app-components';
+import {
+  BlogNavContainer,
+  BlogList,
+  BlogPage,
+  BlogForm,
+} from 'blog-web-app-components';
 
 const navItems = ['Home', 'About', 'Contact'];
 const avatarItems = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -28,7 +33,7 @@ export default function Home() {
   };
   return (
     <div>
-      <HeaderNav
+      <BlogNavContainer
         imgSrc="/default-logo.png"
         navItems={navItems}
         navActive={navItems[0]}
@@ -41,19 +46,43 @@ export default function Home() {
       >
         <Box
           sx={{
+            width: { sm: '90%', md: '70%', lg: '60%' },
             display: 'flex',
             justifyContent: 'center',
+            margin: 'auto',
+            flexDirection: 'column',
+            mb: 2,
           }}
         >
-          <Box
-            sx={{
-              width: { lg: '80%' },
-            }}
-          >
-            <CardList />
-          </Box>
+          <BlogPage />
         </Box>
-      </HeaderNav>
+
+        <Box
+          sx={{
+            width: { lg: '80%' },
+            display: 'flex',
+            justifyContent: 'center',
+            margin: 'auto',
+            flexDirection: 'column',
+            mb: 2,
+          }}
+        >
+          <BlogForm />
+        </Box>
+
+        <Box
+          sx={{
+            width: { lg: '80%' },
+            display: 'flex',
+            justifyContent: 'center',
+            margin: 'auto',
+            flexDirection: 'column',
+            mb: 2,
+          }}
+        >
+          <BlogList />
+        </Box>
+      </BlogNavContainer>
     </div>
   );
 }

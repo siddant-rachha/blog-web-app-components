@@ -12,6 +12,7 @@ import {
   Pagination,
 } from '@mui/material';
 import { Filters } from './components/Filters';
+import { DeleteOutline, EditOutlined } from '@mui/icons-material';
 
 const StyledCard = styled(Card)(() => ({
   height: '100%',
@@ -33,7 +34,7 @@ const ReadMoreButton = styled(Button)(() => ({
   },
 }));
 
-export const CardList: React.FC = () => {
+export const BlogList: React.FC = () => {
   const blogPosts = [
     {
       id: 1,
@@ -93,7 +94,7 @@ export const CardList: React.FC = () => {
   ];
 
   return (
-    <>
+    <Box display={'flex'} flexDirection={'column'}>
       <Filters />
       <Box
         sx={{
@@ -122,13 +123,36 @@ export const CardList: React.FC = () => {
                       alt={post.author}
                       sx={{ width: 40, height: 40, mr: 1 }}
                     />
-                    <Box>
-                      <Typography variant="subtitle2" color="text.primary">
-                        {post.author}
-                      </Typography>
-                      <Typography variant="caption" color="text.secondary">
-                        {post.date}
-                      </Typography>
+                    <Box
+                      sx={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Box>
+                        <Typography variant="subtitle2" color="text.primary">
+                          {post.author}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {post.date}
+                        </Typography>
+                      </Box>
+                      <Box
+                        marginLeft="auto"
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'flex-end',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Button sx={{ minWidth: 0 }}>
+                          <EditOutlined />
+                        </Button>
+                        <Button sx={{ minWidth: 0 }}>
+                          <DeleteOutline color="error" />
+                        </Button>
+                      </Box>
                     </Box>
                   </Box>
                   <Typography variant="h6" gutterBottom component="h2">
@@ -157,8 +181,9 @@ export const CardList: React.FC = () => {
         </Grid>
         <Box mt={4} sx={{ display: 'flex', justifyContent: 'center' }}>
           <Pagination count={10} color="primary" size="large" />
+          <Filters />
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
