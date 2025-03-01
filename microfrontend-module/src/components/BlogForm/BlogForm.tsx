@@ -63,84 +63,92 @@ export const BlogForm: React.FC = () => {
   };
 
   return (
-    <Paper
-      component="form"
-      onSubmit={handleSubmit}
-      variant="elevation"
-      elevation={4}
+    <Box
       sx={{
+        p: { xs: 2, sm: 2, md: 4 },
+        background: 'linear-gradient(145deg, #f6f8fc 0%, #f0f4f8 100%)',
+        borderRadius: '16px',
         margin: 'auto',
-        p: 3,
       }}
     >
-      <Typography variant="h4" gutterBottom>
-        Create Blog Post
-      </Typography>
+      <Paper
+        component="form"
+        onSubmit={handleSubmit}
+        variant="elevation"
+        elevation={4}
+        sx={{
+          p: 3,
+        }}
+      >
+        <Typography variant="h4" gutterBottom>
+          Create Blog Post
+        </Typography>
 
-      <TextField
-        label="Your Name"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        required
-      />
+        <TextField
+          label="Your Name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          required
+        />
 
-      <TextField
-        label="Title of Blog"
-        name="title"
-        value={formData.title}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        required
-      />
+        <TextField
+          label="Title of Blog"
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          required
+        />
 
-      <TextField
-        label="Description of Blog"
-        name="description"
-        value={formData.description}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        required
-        multiline
-        rows={12}
-      />
-      <Box display="flex" width="100%" flexDirection="column">
-        <Button
-          component="label"
-          role={undefined}
-          variant="outlined"
-          tabIndex={-1}
-          startIcon={<CloudUpload />}
-          sx={{ width: '50%' }}
-        >
-          Upload files
-          <VisuallyHiddenInput
-            type="file"
-            onChange={event => handleImageChange(event)}
-            multiple
-          />
-        </Button>
-        {image ? (
-          <Typography sx={{ mt: 1 }}>Selected Image: {image.name}</Typography>
-        ) : (
-          <Typography fontStyle="italic" variant="caption">
-            Optional
-          </Typography>
-        )}
+        <TextField
+          label="Description of Blog"
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          required
+          multiline
+          rows={12}
+        />
+        <Box display="flex" width="100%" flexDirection="column">
+          <Button
+            component="label"
+            role={undefined}
+            variant="outlined"
+            tabIndex={-1}
+            startIcon={<CloudUpload />}
+            sx={{ width: '50%' }}
+          >
+            <Typography variant="caption">Upload files</Typography>
+            <VisuallyHiddenInput
+              type="file"
+              onChange={event => handleImageChange(event)}
+              multiple
+            />
+          </Button>
+          {image ? (
+            <Typography sx={{ mt: 1 }}>Selected Image: {image.name}</Typography>
+          ) : (
+            <Typography fontStyle="italic" variant="caption">
+              Optional
+            </Typography>
+          )}
 
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          sx={{ mt: 2 }}
-        >
-          Create Post
-        </Button>
-      </Box>
-    </Paper>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ mt: 2 }}
+          >
+            Create Post
+          </Button>
+        </Box>
+      </Paper>
+    </Box>
   );
 };

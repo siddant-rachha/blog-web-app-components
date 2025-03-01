@@ -8,6 +8,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { EventEmitter } from '../../../webcomponents/EventEmitter/EventEmitter';
+import { EventName } from '../../../webcomponents/EventEmitter/constants';
 
 type Props = {
   navItems: string[];
@@ -30,6 +32,7 @@ export const DrawerComponent: React.FC<Props> = ({
 }) => {
   const handleNavItemClick = (item: string) => {
     handleNavItem(item);
+    EventEmitter(EventName.handleNavItem, item);
   };
 
   return (

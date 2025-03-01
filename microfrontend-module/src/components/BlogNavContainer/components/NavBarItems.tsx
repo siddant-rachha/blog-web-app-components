@@ -2,6 +2,8 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { BoxProps } from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { EventEmitter } from '../../../webcomponents/EventEmitter/EventEmitter';
+import { EventName } from '../../../webcomponents/EventEmitter/constants';
 
 interface Props extends BoxProps {
   navItems: string[];
@@ -17,7 +19,9 @@ export const NavBarItems: React.FC<Props> = ({
 }) => {
   const handleNavItemClick = (item: string) => {
     handleNavItem(item);
+    EventEmitter(EventName.handleNavItem, item);
   };
+
   return (
     <Box {...rest}>
       {navItems.map(item => (

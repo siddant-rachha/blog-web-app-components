@@ -98,7 +98,7 @@ export const BlogList: React.FC = () => {
       <Filters />
       <Box
         sx={{
-          p: 4,
+          p: { xs: 2, sm: 2, md: 4 },
           background: 'linear-gradient(145deg, #f6f8fc 0%, #f0f4f8 100%)',
           borderRadius: '16px',
         }}
@@ -179,8 +179,16 @@ export const BlogList: React.FC = () => {
             </Grid>
           ))}
         </Grid>
-        <Box mt={4} sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Pagination count={10} color="primary" size="large" />
+        <Box
+          mt={4}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: { xs: 'column', md: 'row' },
+          }}
+        >
+          <Pagination count={10} color="primary" size="large" sx={{ mb: 2 }} />
           <Filters />
         </Box>
       </Box>

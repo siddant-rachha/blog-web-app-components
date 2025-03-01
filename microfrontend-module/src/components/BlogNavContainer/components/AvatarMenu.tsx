@@ -6,6 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
+import { EventEmitter } from '../../../webcomponents/EventEmitter/EventEmitter';
+import { EventName } from '../../../webcomponents/EventEmitter/constants';
 
 type Props = {
   menuItems: string[];
@@ -30,6 +32,7 @@ export const AvatarMenu: React.FC<Props> = ({
 
   const handleAvatarItemClick = (item: string) => {
     handleAvatarItem(item);
+    EventEmitter(EventName.handleAvatarItem, item);
   };
 
   return (
