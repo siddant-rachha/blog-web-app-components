@@ -8,7 +8,7 @@
 //   BlogForm,
 // } from 'blog-web-app-components';
 import { useEffect } from 'react';
-import { EventConsumer, RemoveEvent } from './EventConsumer';
+import { EventConsumer, RemoveEvent } from '../utils/EventConsumer';
 
 declare global {
   namespace React {

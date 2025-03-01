@@ -6,8 +6,8 @@ import Box from '@mui/material/Box';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
-import { EventEmitter } from '../../../webcomponents/EventEmitter/EventEmitter';
-import { EventName } from '../../../webcomponents/EventEmitter/constants';
+import { EventEmitter } from '../../../utils/EventEmitter/EventEmitter';
+import { EventName } from '../../../utils/EventEmitter/constants';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',

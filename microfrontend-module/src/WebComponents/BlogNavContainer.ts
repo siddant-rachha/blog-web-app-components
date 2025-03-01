@@ -1,5 +1,5 @@
 import r2wc from '@r2wc/react-to-web-component';
-import { BlogNavContainer } from '../../components/BlogNavContainer/BlogNavContainer';
+import { BlogNavContainer } from '../ModuleComponents/BlogNavContainer/BlogNavContainer';
 
 const BlogNavContainerWC = r2wc(BlogNavContainer, {
   props: {

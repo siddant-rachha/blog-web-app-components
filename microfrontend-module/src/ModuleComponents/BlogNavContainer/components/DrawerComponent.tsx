@@ -8,8 +8,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { EventEmitter } from '../../../webcomponents/EventEmitter/EventEmitter';
-import { EventName } from '../../../webcomponents/EventEmitter/constants';
+import { EventEmitter } from '../../../utils/EventEmitter/EventEmitter';
+import { EventName } from '../../../utils/EventEmitter/constants';
 
 type Props = {
   navItems: string[];

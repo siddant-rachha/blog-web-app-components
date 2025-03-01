@@ -1,13 +1,13 @@
 {
   "name": "blog-web-app-components",
   "version": "1.0.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/ModuleComponents/index.js",
+  "types": "dist/ModuleComponents/index.d.ts",
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+      "import": "./dist/ModuleComponents/index.js",
+      "require": "./dist/ModuleComponents/index.js"
     }
   },
   "scripts": {
@@ -17,7 +17,7 @@
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "dev": "tsc --watch",
-    "bundle": "tsc && esbuild src/webcomponents/webComponentBundle.ts --bundle --minify --define:process.env.NODE_ENV='\"production\"' --outfile=dist/bundle.js --format=esm"
+    "bundle": "tsc && esbuild src/WebComponents/index.ts --bundle --minify --define:process.env.NODE_ENV='\"production\"' --outfile=dist/bundle.js --format=esm"
   },
   "files": [
     "dist"
