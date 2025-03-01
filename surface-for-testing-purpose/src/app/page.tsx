@@ -14,7 +14,10 @@ declare global {
   namespace React {
     namespace JSX {
       interface IntrinsicElements {
-        'blog-nav-container': { 'img-src': string };
+        'blog-nav-container': unknown;
+        'blog-page': unknown;
+        'blog-list': unknown;
+        'blog-form': unknown;
       }
     }
   }
@@ -66,7 +69,10 @@ export default function Home() {
         nav-active="Home"
         avatar-items={JSON.stringify(avatarItems)}
         search-items={JSON.stringify(searchItems)}
-      ></blog-nav-container>
+      />
+      <blog-form />
+      <blog-list />
+      <blog-page />
     </div>
   );
 

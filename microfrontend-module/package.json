@@ -31,18 +31,15 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.5",
     "@mui/material": "^6.4.5",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "typescript": "^5.7.3"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@emotion/react": "*",
-    "@emotion/styled": "*",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@eslint/js": "^9.21.0",
-    "@mui/icons-material": "*",
-    "@mui/material": "*",
+    "@mui/icons-material": "^6.4.5",
+    "@mui/material": "^6.4.5",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "esbuild": "^0.25.0",
@@ -54,9 +51,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.25.0"
-  },
-  "dependencies": {
+    "typescript-eslint": "^8.25.0",
     "@r2wc/react-to-web-component": "^2.0.4"
   }
 }
