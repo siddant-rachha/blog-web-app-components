@@ -5,7 +5,7 @@
   "scripts": {
     "format:fix": "cd surface-for-testing-purpose && npm run format:fix && cd .. && cd microfrontend-module && npm run format:fix",
     "test": "echo \"Error: no test specified Surface\" && exit 1",
-    "prepare": "[ \"$NODE_ENV\" != \"production\" ] && husky || true",
+    "prepare": "npm i husky && husky",
     "surface": "npm --prefix surface-for-testing-purpose run dev",
     "mf": "npm --prefix microfrontend-module run dev",
     "bundle-mf": "npm --prefix microfrontend-module run bundle",
