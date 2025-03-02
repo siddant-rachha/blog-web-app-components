@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import {
-  TextField,
-  Button,
-  Typography,
-  Paper,
-  Box,
-  styled,
-} from '@mui/material';
-import { CloudUpload } from '@mui/icons-material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import CloudUpload from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
+import { EventName } from '../../utils/EventEmitter/constants';
+import { EventEmitter } from '../../utils/EventEmitter/EventEmitter';
+import { ImageToBase64 } from '../../utils/ImageToBase64/ImageToBase64';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -21,14 +22,35 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-export const BlogForm: React.FC = () => {
+type Props = {
+  name?: string;
+  title?: string;
+  desc?: string;
+  base64Image?: string;
+  handleFormSubmit: (formData: {
+    base64Image: string | null;
+    title: string;
+    desc: string;
+    name: string;
+  }) => void;
+};
+
+export const BlogForm: React.FC<Props> = ({
+  name = '',
+  title = '',
+  desc = '',
+  base64Image = null,
+  handleFormSubmit,
+}) => {
   const [formData, setFormData] = useState({
-    name: '',
-    title: '',
-    description: '',
+    name: name,
+    title: title,
+    desc: desc,
   });
 
-  const [image, setImage] = useState<File | null>(null);
+  const [base64ImageState, setBase64ImageState] = useState<string | null>(
+    base64Image
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -38,28 +60,24 @@ export const BlogForm: React.FC = () => {
     }));
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     if (event.target.files && event.target.files[0]) {
-      setImage(event.target.files[0]);
+      const string = await ImageToBase64(event.target.files[0]);
+      setBase64ImageState(string);
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const completeData = {
       ...formData,
-      image,
+      base64Image: base64ImageState,
     };
-    console.log('Form Data:', completeData);
-    // Handle form submission logic here (e.g., send data to backend)
 
-    // Reset form fields after submission
-    setFormData({
-      name: '',
-      title: '',
-      description: '',
-    });
-    setImage(null);
+    handleFormSubmit(completeData);
+    EventEmitter(EventName.handleFormSubmit, completeData);
   };
 
   return (
@@ -107,7 +125,7 @@ export const BlogForm: React.FC = () => {
         <TextField
           label="Description of Blog"
           name="description"
-          value={formData.description}
+          value={formData.desc}
           onChange={handleChange}
           fullWidth
           margin="normal"
@@ -115,7 +133,12 @@ export const BlogForm: React.FC = () => {
           multiline
           rows={12}
         />
-        <Box display="flex" width="100%" flexDirection="column">
+        <Box
+          display="flex"
+          width="100%"
+          flexDirection="column"
+          alignItems={'flex-start'}
+        >
           <Button
             component="label"
             role={undefined}
@@ -131,8 +154,14 @@ export const BlogForm: React.FC = () => {
               multiple
             />
           </Button>
-          {image ? (
-            <Typography sx={{ mt: 1 }}>Selected Image: {image.name}</Typography>
+          {base64ImageState ? (
+            <Box
+              component="img"
+              src={base64ImageState}
+              alt="Uploded image"
+              height="100"
+              sx={{ width: 'auto', height: '100px', borderRadius: 2, m: 2 }}
+            />
           ) : (
             <Typography fontStyle="italic" variant="caption">
               Optional
@@ -143,6 +172,7 @@ export const BlogForm: React.FC = () => {
             type="submit"
             variant="contained"
             color="primary"
+            fullWidth
             sx={{ mt: 2 }}
           >
             Create Post

@@ -12,7 +12,8 @@ import { NavBarItems } from './components/NavBarItems';
 
 type Props = {
   children: React.ReactNode | null;
-  imgSrc: string;
+  logoSrc: string;
+  avatarSrc: string;
   navItems: string[];
   navActive: string;
   avatarItems: string[];
@@ -25,7 +26,8 @@ type Props = {
 
 export const BlogNavContainer: React.FC<Props> = ({
   children,
-  imgSrc = '.',
+  logoSrc = '.',
+  avatarSrc = '.',
   navItems = [],
   navActive,
   avatarItems = [],
@@ -65,7 +67,7 @@ export const BlogNavContainer: React.FC<Props> = ({
               cursor: 'pointer',
             }}
           >
-            <img src={imgSrc} alt="Logo" height={60} />
+            <img src={logoSrc} alt="Logo" height={60} />
           </Box>
 
           {/* search component */}
@@ -88,6 +90,7 @@ export const BlogNavContainer: React.FC<Props> = ({
           {/* avatar with menu */}
           <AvatarMenu
             menuItems={avatarItems}
+            avatarSrc={avatarSrc}
             handleAvatarItem={handleAvatarItem}
           />
         </Toolbar>
@@ -95,7 +98,7 @@ export const BlogNavContainer: React.FC<Props> = ({
 
       {/* drawer component for mobile */}
       <DrawerComponent
-        imgSrc={imgSrc}
+        imgSrc={logoSrc}
         navItems={navItems}
         navActive={navActive}
         drawerWidth={240}

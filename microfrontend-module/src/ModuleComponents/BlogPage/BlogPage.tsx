@@ -1,46 +1,31 @@
 import React from 'react';
-import {
-  Box,
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  Button,
-  Paper,
-  Avatar,
-} from '@mui/material';
-import { DeleteOutline, EditOutlined } from '@mui/icons-material';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Avatar from '@mui/material/Avatar';
+import DeleteOutline from '@mui/icons-material/DeleteOutline';
+import EditOutlined from '@mui/icons-material/EditOutlined';
+import { EventEmitter } from '../../utils/EventEmitter/EventEmitter';
+import { EventName } from '../../utils/EventEmitter/constants';
 
-export const BlogPage: React.FC = () => {
-  // Dummy Data for Blog Post
-  const blogPost = {
-    title: 'Amazing Blog Post',
-    imageUrl:
-      'https://plus.unsplash.com/premium_photo-1740708549031-fd00d8821c5b?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Placeholder image
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  `,
-    date: 'February 28, 2025',
-    author: 'John Doe',
-    avatarUrl:
-      'https://plus.unsplash.com/premium_photo-1740708549031-fd00d8821c5b?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+type Props = {
+  blogPost: {
+    title: string;
+    imageSrc: string;
+    desc: string;
+    date: string;
+    author: string;
+    avatarSrc: string;
+    writePermission: boolean;
   };
+  handleBlogAction: (action: 'edit' | 'del') => void;
+};
 
-  const handleEdit = () => {
-    console.log('Edit post');
-    // Add edit logic here (e.g., navigate to edit form)
-  };
-
-  const handleDelete = () => {
-    console.log('Delete post');
-    // Add delete logic here (e.g., call backend to delete post)
-  };
-
+export const BlogPage: React.FC<Props> = ({ blogPost, handleBlogAction }) => {
   return (
     <Box
       sx={{
@@ -53,7 +38,7 @@ export const BlogPage: React.FC = () => {
         <Card sx={{ boxShadow: 3 }}>
           <CardMedia
             component="img"
-            image={blogPost.imageUrl}
+            image={blogPost.imageSrc}
             alt={blogPost.title}
             sx={{
               height: { sm: '50vh', xs: '30vh' },
@@ -81,7 +66,7 @@ export const BlogPage: React.FC = () => {
                 }}
               >
                 <Avatar
-                  src={blogPost.avatarUrl}
+                  src={blogPost.avatarSrc}
                   alt={blogPost.author}
                   sx={{ width: 40, height: 40, mr: 1 }}
                 />
@@ -102,30 +87,43 @@ export const BlogPage: React.FC = () => {
                   </Box>
                 </Box>
               </Box>
-              <Box
-                marginLeft="auto"
-                sx={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'flex-end',
-                  alignItems: 'center',
-                }}
-              >
-                <Button onClick={handleEdit} size="small" sx={{ minWidth: 0 }}>
-                  <EditOutlined /> Edit
-                </Button>
-                <Button
-                  onClick={handleDelete}
-                  size="small"
-                  sx={{ minWidth: 0 }}
+
+              {blogPost.writePermission && (
+                <Box
+                  marginLeft="auto"
+                  sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'flex-end',
+                    alignItems: 'center',
+                  }}
                 >
-                  <DeleteOutline color="error" /> Delete
-                </Button>
-              </Box>
+                  <Button
+                    onClick={() => {
+                      handleBlogAction('edit');
+                      EventEmitter(EventName.handleBlogAction, 'edit');
+                    }}
+                    size="small"
+                    sx={{ minWidth: 0 }}
+                  >
+                    <EditOutlined /> Edit
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      handleBlogAction('del');
+                      EventEmitter(EventName.handleBlogAction, 'del');
+                    }}
+                    size="small"
+                    sx={{ minWidth: 0 }}
+                  >
+                    <DeleteOutline color="error" /> Delete
+                  </Button>
+                </Box>
+              )}
             </Box>
 
             <Typography variant="body1" sx={{ mb: 3, mt: 3 }}>
-              {blogPost.description}
+              {blogPost.desc}
             </Typography>
           </CardContent>
         </Card>

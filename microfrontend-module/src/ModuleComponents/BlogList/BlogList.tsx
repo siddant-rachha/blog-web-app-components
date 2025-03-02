@@ -1,18 +1,21 @@
 import React from 'react';
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Grid2 as Grid,
-  Avatar,
-  Button,
-  styled,
-  Pagination,
-} from '@mui/material';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid2';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import styled from '@mui/material/styles/styled';
+import Pagination from '@mui/material/Pagination';
+
+import DeleteOutline from '@mui/icons-material/DeleteOutline';
+import EditOutlined from '@mui/icons-material/EditOutlined';
+
 import { Filters } from './components/Filters';
-import { DeleteOutline, EditOutlined } from '@mui/icons-material';
+import { EventEmitter } from '../../utils/EventEmitter/EventEmitter';
+import { EventName } from '../../utils/EventEmitter/constants';
 
 const StyledCard = styled(Card)(() => ({
   height: '100%',
@@ -33,69 +36,48 @@ const ReadMoreButton = styled(Button)(() => ({
     transform: 'translateY(-3px)',
   },
 }));
-
-export const BlogList: React.FC = () => {
-  const blogPosts = [
-    {
-      id: 1,
-      title: 'The Art of Modern Web Development',
-      author: 'Sarah Johnson',
-      avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330',
-      date: 'March 15, 2024',
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
-      excerpt:
-        'Exploring the latest trends and best practices in modern web development, from responsive design to progressive web apps.',
-      tags: ['Web Development', 'Programming', 'Tech'],
-    },
-    {
-      id: 2,
-      title: 'Understanding UI/UX Design Principles',
-      author: 'Michael Chen',
-      avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
-      date: 'March 14, 2024',
-      image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5',
-      excerpt:
-        'A comprehensive guide to understanding the fundamental principles of user interface and user experience design.',
-      tags: ['Design', 'UI/UX', 'Creative'],
-    },
-    {
-      id: 3,
-      title: 'The Future of Artificial Intelligence',
-      author: 'Emily Rodriguez',
-      avatarUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80',
-      date: 'March 13, 2024',
-      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e',
-      excerpt:
-        'Diving deep into the future implications of AI technology and its potential impact on various industries.',
-      tags: ['AI', 'Technology', 'Future'],
-    },
-    {
-      id: 4,
-      title: 'The Art of Modern Web Development',
-      author: 'Sarah Johnson',
-      avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330',
-      date: 'March 15, 2024',
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
-      excerpt:
-        'Exploring the latest trends and best practices in modern web development, from responsive design to progressive web apps.',
-      tags: ['Web Development', 'Programming', 'Tech'],
-    },
-    {
-      id: 5,
-      title: 'Understanding UI/UX Design Principles',
-      author: 'Michael Chen',
-      avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
-      date: 'March 14, 2024',
-      image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5',
-      excerpt:
-        'A comprehensive guide to understanding the fundamental principles of user interface and user experience design.',
-      tags: ['Design', 'UI/UX', 'Creative'],
-    },
-  ];
-
+type Props = {
+  blogPosts: {
+    id: string;
+    title: string;
+    author: string;
+    avatarSrc: string;
+    imgSrc: string;
+    date: string;
+    desc: string;
+    writePermission: boolean;
+  }[];
+  blogFilter: string[];
+  handleBlogFilter: (filter: string) => void;
+  handleCardAction: ({
+    id,
+    action,
+  }: {
+    id: string;
+    action: 'edit' | 'del' | 'read';
+  }) => void;
+};
+export const BlogList: React.FC<Props> = ({
+  blogPosts = [],
+  blogFilter = [],
+  handleBlogFilter,
+  handleCardAction,
+}) => {
+  const handleCardActionClick = (
+    id: string,
+    action: 'edit' | 'del' | 'read'
+  ) => {
+    handleCardAction({
+      id,
+      action,
+    });
+    EventEmitter(EventName.handleCardAction, {
+      id,
+      action,
+    });
+  };
   return (
     <Box display={'flex'} flexDirection={'column'}>
-      <Filters />
       <Box
         sx={{
           p: { xs: 2, sm: 2, md: 4 },
@@ -103,81 +85,104 @@ export const BlogList: React.FC = () => {
           borderRadius: '16px',
         }}
       >
+        <Filters blogFilter={blogFilter} handleBlogFilter={handleBlogFilter} />
+
         <Grid container spacing={4}>
-          {blogPosts.map(post => (
-            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={post.id}>
-              <StyledCard>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={post.image}
-                  alt={post.title}
-                  sx={{ objectFit: 'cover' }}
-                />
-                <CardContent
-                  sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                    <Avatar
-                      src={post.avatarUrl}
-                      alt={post.author}
-                      sx={{ width: 40, height: 40, mr: 1 }}
-                    />
-                    <Box
-                      sx={{
-                        width: '100%',
-                        display: 'flex',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Box>
-                        <Typography variant="subtitle2" color="text.primary">
-                          {post.author}
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary">
-                          {post.date}
-                        </Typography>
-                      </Box>
+          {!blogPosts.length ? (
+            <h4>No Blog Posts</h4>
+          ) : (
+            blogPosts.map(post => (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={post.id}>
+                <StyledCard>
+                  <CardMedia
+                    component="img"
+                    height="200"
+                    image={post.imgSrc}
+                    alt={post.title}
+                    sx={{ objectFit: 'cover' }}
+                  />
+                  <CardContent
+                    sx={{
+                      flexGrow: 1,
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                      <Avatar
+                        src={post.avatarSrc}
+                        alt={post.author}
+                        sx={{ width: 40, height: 40, mr: 1 }}
+                      />
                       <Box
-                        marginLeft="auto"
                         sx={{
+                          width: '100%',
                           display: 'flex',
-                          justifyContent: 'flex-end',
                           alignItems: 'center',
                         }}
                       >
-                        <Button sx={{ minWidth: 0 }}>
-                          <EditOutlined />
-                        </Button>
-                        <Button sx={{ minWidth: 0 }}>
-                          <DeleteOutline color="error" />
-                        </Button>
+                        <Box>
+                          <Typography variant="subtitle2" color="text.primary">
+                            {post.author}
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary">
+                            {post.date}
+                          </Typography>
+                        </Box>
+                        {post.writePermission && (
+                          <Box
+                            marginLeft="auto"
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'flex-end',
+                              alignItems: 'center',
+                            }}
+                          >
+                            <Button
+                              sx={{ minWidth: 0 }}
+                              onClick={() =>
+                                handleCardActionClick(post.id, 'edit')
+                              }
+                            >
+                              <EditOutlined />
+                            </Button>
+                            <Button
+                              sx={{ minWidth: 0 }}
+                              onClick={() =>
+                                handleCardActionClick(post.id, 'del')
+                              }
+                            >
+                              <DeleteOutline color="error" />
+                            </Button>
+                          </Box>
+                        )}
                       </Box>
                     </Box>
-                  </Box>
-                  <Typography variant="h6" gutterBottom component="h2">
-                    {post.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 2 }}
-                  >
-                    {post.excerpt}
-                  </Typography>
+                    <Typography variant="h6" gutterBottom component="h2">
+                      {post.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ mb: 2 }}
+                    >
+                      {post.desc}
+                    </Typography>
 
-                  <ReadMoreButton
-                    variant="contained"
-                    color="primary"
-                    sx={{ borderRadius: 2 }}
-                    aria-label={`Read more about ${post.title}`}
-                  >
-                    Read More
-                  </ReadMoreButton>
-                </CardContent>
-              </StyledCard>
-            </Grid>
-          ))}
+                    <ReadMoreButton
+                      variant="contained"
+                      color="primary"
+                      sx={{ borderRadius: 2 }}
+                      aria-label={`Read more about ${post.title}`}
+                      onClick={() => handleCardActionClick(post.id, 'read')}
+                    >
+                      Read More
+                    </ReadMoreButton>
+                  </CardContent>
+                </StyledCard>
+              </Grid>
+            ))
+          )}
         </Grid>
         <Box
           mt={4}
@@ -189,7 +194,7 @@ export const BlogList: React.FC = () => {
           }}
         >
           <Pagination count={10} color="primary" size="large" sx={{ mb: 2 }} />
-          <Filters />
+          {/* <Filters /> */}
         </Box>
       </Box>
     </Box>

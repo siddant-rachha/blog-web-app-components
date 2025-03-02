@@ -4,12 +4,22 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { EventEmitter } from '../../../utils/EventEmitter/EventEmitter';
+import { EventName } from '../../../utils/EventEmitter/constants';
 
-export const Filters = () => {
-  const [age, setAge] = React.useState('');
+export const Filters = ({
+  blogFilter = [],
+  handleBlogFilter,
+}: {
+  blogFilter: string[];
+  handleBlogFilter: (filter: string) => void;
+}) => {
+  const [filter, setFilter] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setFilter(event.target.value as string);
+    handleBlogFilter(event.target.value);
+    EventEmitter(EventName.handleBlogFilter, event.target.value);
   };
 
   return (
@@ -26,17 +36,21 @@ export const Filters = () => {
         sx={{ maxWidth: 240, marginRight: 2, minWidth: 80 }}
         size="small"
       >
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">Filter</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
-          label="Age"
+          value={filter}
+          label="Filter"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {blogFilter.map(item => {
+            return (
+              <MenuItem key={item} value={item}>
+                {item}
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
     </Box>

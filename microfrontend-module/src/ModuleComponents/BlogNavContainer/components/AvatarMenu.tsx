@@ -11,11 +11,13 @@ import { EventName } from '../../../utils/EventEmitter/constants';
 
 type Props = {
   menuItems: string[];
+  avatarSrc: string;
   handleAvatarItem: (item: string) => void;
 };
 
 export const AvatarMenu: React.FC<Props> = ({
   menuItems,
+  avatarSrc,
   handleAvatarItem,
 }) => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -39,7 +41,7 @@ export const AvatarMenu: React.FC<Props> = ({
     <Box sx={{ flexGrow: 0, marginLeft: 'auto' }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenMenu} sx={{ p: 0 }}>
-          <Avatar alt="Avatar" src="." />
+          <Avatar alt="Avatar" src={avatarSrc} />
         </IconButton>
       </Tooltip>
       <Menu

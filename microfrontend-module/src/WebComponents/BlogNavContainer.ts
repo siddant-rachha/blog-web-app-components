@@ -3,7 +3,8 @@ import { BlogNavContainer } from '../ModuleComponents/BlogNavContainer/BlogNavCo
 
 const BlogNavContainerWC = r2wc(BlogNavContainer, {
   props: {
-    imgSrc: 'string',
+    logoSrc: 'string',
+    avatarSrc: 'string',
     navItems: 'json',
     navActive: 'string',
     avatarItems: 'json',
