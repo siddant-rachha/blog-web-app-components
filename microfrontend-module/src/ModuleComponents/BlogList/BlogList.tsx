@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -36,19 +36,24 @@ const ReadMoreButton = styled(Button)(() => ({
     transform: 'translateY(-3px)',
   },
 }));
+
+type BlogPost = {
+  id: string;
+  title: string;
+  author: string;
+  avatarSrc: string;
+  imgSrc: string;
+  date: string;
+  desc: string;
+  writePermission: boolean;
+};
+
 type Props = {
-  blogPosts: {
-    id: string;
-    title: string;
-    author: string;
-    avatarSrc: string;
-    imgSrc: string;
-    date: string;
-    desc: string;
-    writePermission: boolean;
-  }[];
+  blogPosts: BlogPost[];
   blogFilter: string[];
-  handleBlogFilter: (filter: string) => void;
+  paginationFilter: string[];
+  blogPerPage: string;
+  handleFilterSelect: ({ type, item }: { type: string; item: string }) => void;
   handleCardAction: ({
     id,
     action,
@@ -57,10 +62,13 @@ type Props = {
     action: 'edit' | 'del' | 'read';
   }) => void;
 };
+
 export const BlogList: React.FC<Props> = ({
   blogPosts = [],
   blogFilter = [],
-  handleBlogFilter,
+  paginationFilter = [],
+  blogPerPage = '6',
+  handleFilterSelect,
   handleCardAction,
 }) => {
   const handleCardActionClick = (
@@ -76,6 +84,29 @@ export const BlogList: React.FC<Props> = ({
       action,
     });
   };
+
+  const [perPageItems, setPerPageItems] = useState([] as BlogPost[]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [paginationCount, setPaginationCount] = useState(1);
+
+  const handlePagination = (page: number) => {
+    setCurrentPage(page);
+
+    const startIndex = (page - 1) * Number(blogPerPage);
+    const endIndex = startIndex + Number(blogPerPage);
+
+    setPerPageItems(blogPosts.slice(startIndex, endIndex));
+  };
+
+  useEffect(() => {
+    const totalPages = Math.ceil(blogPosts.length / Number(blogPerPage));
+    setPaginationCount(totalPages);
+
+    // Reset to first page when blogPosts change
+    setCurrentPage(1);
+    handlePagination(1);
+  }, [blogPosts, blogPerPage]);
+
   return (
     <Box display={'flex'} flexDirection={'column'}>
       <Box
@@ -85,13 +116,18 @@ export const BlogList: React.FC<Props> = ({
           borderRadius: '16px',
         }}
       >
-        <Filters blogFilter={blogFilter} handleBlogFilter={handleBlogFilter} />
+        <Filters
+          width={240}
+          filter={blogFilter}
+          handleFilter={handleFilterSelect}
+          type="Filter by"
+        />
 
         <Grid container spacing={4}>
           {!blogPosts.length ? (
             <h4>No Blog Posts</h4>
           ) : (
-            blogPosts.map(post => (
+            perPageItems.map(post => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={post.id}>
                 <StyledCard>
                   <CardMedia
@@ -193,8 +229,20 @@ export const BlogList: React.FC<Props> = ({
             flexDirection: { xs: 'column', md: 'row' },
           }}
         >
-          <Pagination count={10} color="primary" size="large" sx={{ mb: 2 }} />
-          {/* <Filters /> */}
+          <Pagination
+            count={paginationCount}
+            color="primary"
+            size="large"
+            sx={{ mb: 2 }}
+            onChange={(e, page) => handlePagination(page)}
+            page={currentPage}
+          />
+          <Filters
+            width={120}
+            filter={paginationFilter}
+            handleFilter={handleFilterSelect}
+            type="Per page"
+          />
         </Box>
       </Box>
     </Box>

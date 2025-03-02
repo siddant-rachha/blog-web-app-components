@@ -5,13 +5,12 @@ const BlogListWC = r2wc(BlogList, {
   props: {
     blogPosts: 'json',
     blogFilter: 'json',
-    // paginationObj: 'json'
+    paginationFilter: 'json',
+    blogPerPage: 'string',
   },
   events: {
-    handleBlogFilter: { bubbles: true },
+    handleFilterSelect: { bubbles: true },
     handleCardAction: { bubbles: true },
-    // handlePaginationFilter: { bubbles: true },
-    // handlePaginationClick: { bubbles: true },
   },
 });
 

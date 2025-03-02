@@ -9,6 +9,7 @@ import {
 } from 'blog-web-app-components';
 import { useEffect } from 'react';
 import { EventConsumer, RemoveEvent } from '../utils/EventConsumer';
+import { blogPosts } from './mocks';
 
 declare global {
   namespace React {
@@ -51,58 +52,6 @@ const searchItems = [
 //   avatarSrc:
 //     'https://plus.unsplash.com/premium_photo-1740708549031-fd00d8821c5b?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 // };
-const blogPosts = [
-  {
-    id: '1',
-    title: 'The Art of Modern Web Development',
-    author: 'Sarah Johnson',
-    avatarSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330',
-    date: 'March 15, 2024',
-    imgSrc: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
-    desc: 'Exploring the latest trends and best practices in modern web development, from responsive design to progressive web apps.',
-    writePermission: true,
-  },
-  {
-    id: '2',
-    title: 'Understanding UI/UX Design Principles',
-    author: 'Michael Chen',
-    avatarSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
-    date: 'March 14, 2024',
-    imgSrc: 'https://images.unsplash.com/photo-1561070791-2526d30994b5',
-    desc: 'A comprehensive guide to understanding the fundamental principles of user interface and user experience design.',
-    writePermission: false,
-  },
-  {
-    id: '3',
-    title: 'The Future of Artificial Intelligence',
-    author: 'Emily Rodriguez',
-    avatarSrc: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80',
-    date: 'March 13, 2024',
-    imgSrc: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e',
-    desc: 'Diving deep into the future implications of AI technology and its potential impact on various industries.',
-    writePermission: true,
-  },
-  {
-    id: '4',
-    title: 'Mastering JavaScript Performance Optimization',
-    author: 'David Lee',
-    avatarSrc: 'https://images.unsplash.com/photo-1521119989659-a83eee488004',
-    date: 'March 12, 2024',
-    imgSrc: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
-    desc: 'Techniques and best practices to improve JavaScript performance for faster, smoother web applications.',
-    writePermission: false,
-  },
-  {
-    id: '5',
-    title: 'Understanding UI/UX Design Principles',
-    author: 'Michael Chen',
-    avatarSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
-    date: 'March 14, 2024',
-    imgSrc: 'https://images.unsplash.com/photo-1561070791-2526d30994b5',
-    desc: 'A comprehensive guide to understanding the fundamental principles of user interface and user experience design.',
-    writePermission: true,
-  },
-];
 
 export default function Home() {
   const handleNavItem = (item: string) => {
@@ -131,12 +80,18 @@ export default function Home() {
     console.log(action);
   };
 
-  const handleBlogFilter = (filter: string) => {
-    console.log(filter);
-  };
-
   const handleCardAction = ({ id, action }: { id: string; action: string }) => {
     console.log(id, action);
+  };
+
+  const handleFilterSelect = ({
+    type,
+    item,
+  }: {
+    type: string;
+    item: string;
+  }) => {
+    console.log(type, item);
   };
 
   useEffect(() => {
@@ -146,7 +101,7 @@ export default function Home() {
     EventConsumer('handleSearchInputWC', handleSearchInput);
     EventConsumer('handleFormSubmitWC', handleFormSubmit);
     EventConsumer('handleBlogActionWC', handleBlogAction);
-    EventConsumer('handleBlogFilterWC', handleBlogFilter);
+    EventConsumer('handleFilterSelectWC', handleFilterSelect);
     EventConsumer('handleCardActionWC', handleCardAction);
     return () => {
       RemoveEvent('handleAvatarItemWC', handleAvatarItem);
@@ -154,7 +109,7 @@ export default function Home() {
       RemoveEvent('handleSearchItemWC', handleSearchItem);
       RemoveEvent('handleSearchInputWC', handleSearchInput);
       RemoveEvent('handleFormSubmitWC', handleFormSubmit);
-      EventConsumer('handleBlogActionWC', handleBlogAction);
+      EventConsumer('handleFilterSelectWC', handleFilterSelect);
       EventConsumer('handleCardActionWC', handleCardAction);
     };
   }, []);
@@ -181,7 +136,9 @@ export default function Home() {
       <BlogList
         blogPosts={blogPosts}
         blogFilter={['sid', 'rac']}
-        handleBlogFilter={handleBlogFilter}
+        blogPerPage="6"
+        paginationFilter={['Six', 'Twelve', 'Twenty-Five']}
+        handleFilterSelect={handleFilterSelect}
         handleCardAction={handleCardAction}
       />
     </div>

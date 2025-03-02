@@ -8,18 +8,23 @@ import { EventEmitter } from '../../../utils/EventEmitter/EventEmitter';
 import { EventName } from '../../../utils/EventEmitter/constants';
 
 export const Filters = ({
-  blogFilter = [],
-  handleBlogFilter,
+  type,
+  filter = [],
+  handleFilter,
+  width,
 }: {
-  blogFilter: string[];
-  handleBlogFilter: (filter: string) => void;
+  type: 'Filter by' | 'Per page';
+  filter: string[];
+  handleFilter: ({ type, item }: { type: string; item: string }) => void;
+  width: number;
 }) => {
-  const [filter, setFilter] = React.useState('');
+  const [filterItem, setFilterItem] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
-    setFilter(event.target.value as string);
-    handleBlogFilter(event.target.value);
-    EventEmitter(EventName.handleBlogFilter, event.target.value);
+    setFilterItem(event.target.value as string);
+    const filterItem = { type, item: event.target.value };
+    handleFilter(filterItem);
+    EventEmitter(EventName.handleFilterSelect, filterItem);
   };
 
   return (
@@ -33,18 +38,18 @@ export const Filters = ({
     >
       <FormControl
         fullWidth
-        sx={{ maxWidth: 240, marginRight: 2, minWidth: 80 }}
+        sx={{ maxWidth: 240, marginRight: 2, width }}
         size="small"
       >
-        <InputLabel id="demo-simple-select-label">Filter</InputLabel>
+        <InputLabel id="demo-simple-select-label">{type}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={filter}
-          label="Filter"
+          value={filterItem}
+          label={type}
           onChange={handleChange}
         >
-          {blogFilter.map(item => {
+          {filter.map(item => {
             return (
               <MenuItem key={item} value={item}>
                 {item}

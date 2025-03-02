@@ -12,6 +12,6 @@ export const EventName = {
   handleBlogAction: 'handleBlogAction',
 
   // for BlogList
-  handleBlogFilter: 'handleBlogFilter',
+  handleFilterSelect: 'handleFilterSelect',
   handleCardAction: 'handleCardAction',
 } as const;
