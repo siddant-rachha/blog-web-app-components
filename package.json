@@ -9,7 +9,8 @@
     "surface": "npm --prefix surface-for-testing-purpose run dev",
     "mf": "npm --prefix microfrontend-module run dev",
     "bundle-mf": "npm --prefix microfrontend-module run bundle",
-    "clean": "rm -rf node_modules && rm -rf package-lock.json && cd microfrontend-module && rm -rf node_modules && rm -rf package-lock.json && rm -rf dist && cd .. && cd surface-for-testing-purpose && rm -rf node_modules && rm -rf package-lock.json && rm -rf .next"
+    "clean": "rm -rf node_modules && rm -rf package-lock.json && cd microfrontend-module && rm -rf node_modules && rm -rf package-lock.json && rm -rf dist && cd .. && cd surface-for-testing-purpose && rm -rf node_modules && rm -rf package-lock.json && rm -rf .next",
+    "publish-mf": "npm --prefix microfrontend-module run publish-package"
   },
   "workspaces": [
     "microfrontend-module",

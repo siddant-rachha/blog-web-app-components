@@ -1,18 +1,6 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import Script from 'next/script';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -29,10 +17,14 @@ export default function RootLayout({
       <head>
         <Script
           type="module"
-          src="http://localhost:5500/microfrontend-module/dist/bundle.js"
+          // for local testing
+          // src="http://localhost:5500/microfrontend-module/dist/bundle.js"
+
+          //  npm published bundle
+          src="https://unpkg.com/@siddant-rachha/blog-components@1.0.0/dist/bundle.js"
         ></Script>
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
       </body>
     </html>

@@ -1,5 +1,5 @@
 {
-  "name": "blog-web-app-components",
+  "name": "@siddant-rachha/blog-components",
   "version": "1.0.0",
   "main": "dist/ModuleComponents/index.js",
   "types": "dist/ModuleComponents/index.d.ts",
@@ -17,10 +17,13 @@
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "dev": "tsc --watch",
-    "bundle": "tsc && esbuild src/WebComponents/index.ts --bundle --minify --define:process.env.NODE_ENV='\"production\"' --outfile=dist/bundle.js --format=esm"
+    "bundle": "tsc && esbuild src/WebComponents/index.ts --bundle --minify --define:process.env.NODE_ENV='\"production\"' --outfile=dist/bundle.js --format=esm",
+    "prepublishOnly": "npm run build && npm run bundle",
+    "publish-package": "npm publish --access public"
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/WebComponents"
   ],
   "keywords": [],
   "author": "",

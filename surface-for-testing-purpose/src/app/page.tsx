@@ -7,7 +7,8 @@ import {
   BlogList,
   BlogPage,
   BlogForm,
-} from 'blog-web-app-components';
+} from '@siddant-rachha/blog-components';
+// "To test microfrontend package locally, point as @siddant-rachha/blog-components: file:../microfrontend-module"
 import { EventConsumer, RemoveEvent } from '../utils/EventConsumer';
 import {
   avatarItems,
@@ -15,7 +16,7 @@ import {
   blogPosts,
   navItems,
   searchItems,
-} from './mocks';
+} from '../mocks/mocks';
 
 // define types for webcomponents in .d.ts file
 declare global {
