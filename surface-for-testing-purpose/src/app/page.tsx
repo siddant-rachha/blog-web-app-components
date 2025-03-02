@@ -1,59 +1,56 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 'use client';
-// import { Box } from '@mui/material';
-import {
-  // BlogNavContainer,
-  BlogList,
-  // BlogPage,
-  // BlogForm,
-} from 'blog-web-app-components';
 import { useEffect } from 'react';
+import Box from '@mui/material/Box';
+import {
+  BlogNavContainer,
+  BlogList,
+  BlogPage,
+  BlogForm,
+} from 'blog-web-app-components';
 import { EventConsumer, RemoveEvent } from '../utils/EventConsumer';
-import { blogPosts } from './mocks';
+import {
+  avatarItems,
+  blogPost,
+  blogPosts,
+  navItems,
+  searchItems,
+} from './mocks';
 
+// define types for webcomponents in .d.ts file
 declare global {
   namespace React {
     namespace JSX {
       interface IntrinsicElements {
-        'blog-nav-container': unknown;
-        'blog-page': unknown;
-        'blog-list': unknown;
-        'blog-form': unknown;
+        'blog-nav-container': {
+          'logo-src'?: string;
+          'avatar-src'?: string;
+          'nav-items'?: string;
+          'nav-active'?: string;
+          'avatar-items'?: string;
+          'search-items'?: string;
+        };
+        'blog-list': {
+          'blog-posts': string;
+          'blog-filter'?: string;
+          'blog-per-page'?: string;
+          'pagination-filter'?: string;
+        };
+        'blog-page': {
+          'blog-post': string;
+        };
+        'blog-form': {
+          name?: string;
+          title?: string;
+          desc?: string;
+        };
       }
     }
   }
 }
 
-const navItems = ['Home', 'About', 'Contact'];
-const avatarItems = ['Profile', 'Account', 'Dashboard', 'Logout'];
-const searchItems = [
-  'The Art of Modern Web Development',
-  'The Art of Modern Web Development The Art of Modern Web Development The Art of Modern Web Development',
-  'title3',
-  'title4',
-  'title5',
-] as string[];
-
-// const blogPost = {
-//   writePermission: true,
-//   title: 'Amazing Blog Post',
-//   imageSrc:
-//     'https://plus.unsplash.com/premium_photo-1740708549031-fd00d8821c5b?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Placeholder image
-//   desc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-//                   Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-//                   Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-//                   Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-//                   Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-//                   Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-//                   Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-//                   `,
-//   date: 'February 28, 2025',
-//   author: 'John Doe',
-//   avatarSrc:
-//     'https://plus.unsplash.com/premium_photo-1740708549031-fd00d8821c5b?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-// };
-
 export default function Home() {
+  // handlers for event listerners and callbacks
   const handleNavItem = (item: string) => {
     console.log(item);
   };
@@ -95,6 +92,7 @@ export default function Home() {
   };
 
   useEffect(() => {
+    // register custom events
     EventConsumer('handleAvatarItemWC', handleAvatarItem);
     EventConsumer('handleNavItemWC', handleNavItem);
     EventConsumer('handleSearchItemWC', handleSearchItem);
@@ -109,93 +107,72 @@ export default function Home() {
       RemoveEvent('handleSearchItemWC', handleSearchItem);
       RemoveEvent('handleSearchInputWC', handleSearchInput);
       RemoveEvent('handleFormSubmitWC', handleFormSubmit);
-      EventConsumer('handleFilterSelectWC', handleFilterSelect);
-      EventConsumer('handleCardActionWC', handleCardAction);
+      RemoveEvent('handleBlogActionWC', handleBlogAction);
+      RemoveEvent('handleFilterSelectWC', handleFilterSelect);
+      RemoveEvent('handleCardActionWC', handleCardAction);
     };
   }, []);
 
   return (
-    <div>
-      <blog-nav-container
-        logo-src="/default-logo.png"
-        nav-items={JSON.stringify(navItems)}
-        nav-active="Home"
-        avatar-items={JSON.stringify(avatarItems)}
-        search-items={JSON.stringify(searchItems)}
-      />
-      {/* <BlogForm
-        name="sid"
-        title="i am title"
-        desc="i am desc"
-        handleFormSubmit={handleFormSubmit}
-      /> */}
-      {/* <blog-form name="sid" title="i am title" desc="i am desc" /> */}
-      {/* <blog-list /> */}
-      {/* <blog-page /> */}
-      {/* <BlogPage blogPost={blogPost} handleBlogAction={handleBlogAction} /> */}
-      <BlogList
-        blogPosts={blogPosts}
-        blogFilter={['sid', 'rac']}
-        blogPerPage="6"
-        paginationFilter={['Six', 'Twelve', 'Twenty-Five']}
-        handleFilterSelect={handleFilterSelect}
-        handleCardAction={handleCardAction}
-      />
-    </div>
+    <>
+      <Box>
+        <BlogNavContainer
+          logoSrc="/default-logo.png"
+          avatarSrc="https://plus.unsplash.com/premium_photo-1740708549031-fd00d8821c5b?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          navItems={navItems}
+          navActive={navItems[0]}
+          avatarItems={avatarItems}
+          searchItems={searchItems}
+          handleNavItem={handleNavItem}
+          handleAvatarItem={handleAvatarItem}
+          handleSearchItem={handleSearchItem}
+          handleSearchInput={handleSearchInput}
+        >
+          <h1>These are Module components</h1>
+
+          <BlogList
+            blogPosts={blogPosts}
+            blogFilter={['Oldest', 'Newest', 'My Posts']}
+            blogPerPage="6"
+            paginationFilter={['6', '12', '24']}
+            handleFilterSelect={handleFilterSelect}
+            handleCardAction={handleCardAction}
+          />
+
+          <BlogPage blogPost={blogPost} handleBlogAction={handleBlogAction} />
+
+          <BlogForm
+            name="sid"
+            title="i am title"
+            desc="i am desc"
+            handleFormSubmit={handleFormSubmit}
+          />
+        </BlogNavContainer>
+      </Box>
+      <Box p={4}>
+        <h1>These are Web components</h1>
+
+        {/* Only one nav container can be used */}
+        {/* <blog-nav-container
+          logo-src="/default-logo.png"
+          avatar-src="https://plus.unsplash.com/premium_photo-1740708549031-fd00d8821c5b?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          nav-items={JSON.stringify(navItems)}
+          nav-active="Home"
+          avatar-items={JSON.stringify(avatarItems)}
+          search-items={JSON.stringify(searchItems)}
+        /> */}
+
+        <blog-list
+          blog-posts={JSON.stringify(blogPosts)}
+          blog-filter={JSON.stringify(['Oldest', 'Newest', 'My Posts'])}
+          blog-per-page="6"
+          pagination-filter={JSON.stringify(['6', '12', '24'])}
+        />
+
+        <blog-page blog-post={JSON.stringify(blogPost)} />
+
+        <blog-form name="sid" title="i am title" desc="i am desc" />
+      </Box>
+    </>
   );
-
-  // return (
-  //   <div>
-  //     <BlogNavContainer
-  //       imgSrc="/default-logo.png"
-  //       navItems={navItems}
-  //       navActive={navItems[0]}
-  //       avatarItems={avatarItems}
-  //       searchItems={searchItems}
-  //       handleNavItem={handleNavItem}
-  //       handleAvatarItem={handleAvatarItem}
-  //       handleSearchItem={handleSearchItem}
-  //       handleSearchInput={handleSearchInput}
-  //     >
-  //       <Box
-  //         sx={{
-  //           width: { sm: '90%', md: '70%', lg: '60%' },
-  //           display: 'flex',
-  //           justifyContent: 'center',
-  //           margin: 'auto',
-  //           flexDirection: 'column',
-  //           mb: 2,
-  //         }}
-  //       >
-  //         <BlogPage />
-  //       </Box>
-
-  //       <Box
-  //         sx={{
-  //           width: { lg: '60%' },
-  //           display: 'flex',
-  //           justifyContent: 'center',
-  //           margin: 'auto',
-  //           flexDirection: 'column',
-  //           mb: 2,
-  //         }}
-  //       >
-  //         <BlogForm />
-  //       </Box>
-
-  //       <Box
-  //         sx={{
-  //           width: { lg: '80%' },
-  //           display: 'flex',
-  //           justifyContent: 'center',
-  //           margin: 'auto',
-  //           flexDirection: 'column',
-  //           mb: 2,
-  //         }}
-  //       >
-  //         <BlogList />
-  //       </Box>
-  //     </BlogNavContainer>
-  //   </div>
-  // );
 }
