@@ -1,18 +1,18 @@
 cd microfrontend-module
 rm -rf node_modules
 rm -rf dist
-npm install
-npm test
-npm run lint
-npm run format
-npm run build
+yarn install
+yarn test
+yarn run lint
+yarn run format
+yarn run build
 
 cd ..
 cd surface-for-testing-purpose
 rm -rf node_modules
 rm -rf .next
-npm install
-npm test
-npm run lint
-npm run format
-npm run build
+yarn install
+yarn test
+yarn run lint
+yarn run format
+yarn run build

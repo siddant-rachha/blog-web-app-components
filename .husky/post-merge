@@ -1,11 +1,11 @@
 cd microfrontend-module
 rm -rf node_modules
 rm -rf dist
-npm install
-npm run build
+yarn install
+yarn run build
 
 cd ..
 cd surface-for-testing-purpose
 rm -rf node_modules
 rm -rf .next
-npm install
+yarn install
