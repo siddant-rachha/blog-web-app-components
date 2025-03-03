@@ -13,8 +13,7 @@
     "publish-mf": "npm --prefix microfrontend-module run publish-package"
   },
   "workspaces": [
-    "microfrontend-module",
-    "surface-for-testing-purpose"
+    "microfrontend-module"
   ],
   "devDependencies": {
     "husky": "^9.1.7"
