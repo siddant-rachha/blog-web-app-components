@@ -64,21 +64,20 @@ export const AvatarMenu: React.FC<Props> = ({
         onClose={handleCloseMenu}
       >
         {avatarName && (
-          <>
-            <Box px={4} pb={1}>
-              <Typography fontStyle={'italic'} variant="subtitle2">
-                Logged in as:
-              </Typography>
-              <Typography
-                fontStyle={'italic'}
-                variant="subtitle2"
-                fontWeight={'600'}
-              >
-                {avatarName}
-              </Typography>
-            </Box>
+          <Box px={2} pb={1}>
+            <Typography fontStyle={'italic'} variant="subtitle2">
+              Logged in as:
+            </Typography>
+            <Typography
+              pb={1}
+              fontStyle={'italic'}
+              variant="subtitle2"
+              fontWeight={'600'}
+            >
+              {avatarName}
+            </Typography>
             <Divider />
-          </>
+          </Box>
         )}
 
         {menuItems.map(item => (
@@ -88,7 +87,9 @@ export const AvatarMenu: React.FC<Props> = ({
             key={item}
             onClick={handleCloseMenu}
           >
-            <Typography sx={{ textAlign: 'center' }}>{item}</Typography>
+            <Typography sx={{ textAlign: 'center' }} color="primary">
+              {item}
+            </Typography>
           </MenuItem>
         ))}
       </Menu>
