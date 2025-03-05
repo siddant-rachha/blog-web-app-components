@@ -18,6 +18,7 @@ type Props = {
   navActive: string;
   avatarItems: string[];
   searchItems: string[];
+  avatarName: string;
   handleNavItem: (item: string) => void;
   handleAvatarItem: (item: string) => void;
   handleSearchItem: (item: string) => void;
@@ -32,6 +33,7 @@ export const BlogNavContainer: React.FC<Props> = ({
   navActive,
   avatarItems = [],
   searchItems = [],
+  avatarName,
   handleNavItem,
   handleAvatarItem,
   handleSearchItem,
@@ -92,6 +94,7 @@ export const BlogNavContainer: React.FC<Props> = ({
             menuItems={avatarItems}
             avatarSrc={avatarSrc}
             handleAvatarItem={handleAvatarItem}
+            avatarName={avatarName}
           />
         </Toolbar>
       </AppBar>

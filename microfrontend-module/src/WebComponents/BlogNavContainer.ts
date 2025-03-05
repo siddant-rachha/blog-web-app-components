@@ -9,6 +9,7 @@ const BlogNavContainerWC = r2wc(BlogNavContainer, {
     navActive: 'string',
     avatarItems: 'json',
     searchItems: 'json',
+    avatarName: 'string',
   },
   events: {
     handleAvatarItem: { bubbles: true },

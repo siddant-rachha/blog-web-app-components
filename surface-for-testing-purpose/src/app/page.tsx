@@ -128,6 +128,7 @@ export default function Home() {
           handleAvatarItem={handleAvatarItem}
           handleSearchItem={handleSearchItem}
           handleSearchInput={handleSearchInput}
+          avatarName="Anonymous"
         >
           <h1>These are Module components</h1>
 

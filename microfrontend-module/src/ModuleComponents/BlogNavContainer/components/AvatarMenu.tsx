@@ -8,16 +8,19 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import { EventEmitter } from '../../../utils/EventEmitter/EventEmitter';
 import { EventName } from '../../../utils/EventEmitter/constants';
+import { Divider } from '@mui/material';
 
 type Props = {
   menuItems: string[];
   avatarSrc: string;
+  avatarName: string;
   handleAvatarItem: (item: string) => void;
 };
 
 export const AvatarMenu: React.FC<Props> = ({
   menuItems,
   avatarSrc,
+  avatarName,
   handleAvatarItem,
 }) => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -60,6 +63,24 @@ export const AvatarMenu: React.FC<Props> = ({
         open={Boolean(anchorElUser)}
         onClose={handleCloseMenu}
       >
+        {avatarName && (
+          <>
+            <Box px={4} pb={1}>
+              <Typography fontStyle={'italic'} variant="subtitle2">
+                Logged in as:
+              </Typography>
+              <Typography
+                fontStyle={'italic'}
+                variant="subtitle2"
+                fontWeight={'600'}
+              >
+                {avatarName}
+              </Typography>
+            </Box>
+            <Divider />
+          </>
+        )}
+
         {menuItems.map(item => (
           <MenuItem
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
