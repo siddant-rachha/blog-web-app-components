@@ -124,7 +124,7 @@ export const BlogForm: React.FC<Props> = ({
 
         <TextField
           label="Description of Blog"
-          name="description"
+          name="desc"
           value={formData.desc}
           onChange={handleChange}
           fullWidth

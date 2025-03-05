@@ -21,7 +21,7 @@ export default function RootLayout({
           // src="http://localhost:5500/microfrontend-module/dist/bundle.js"
 
           //  npm published bundle
-          src="https://unpkg.com/@siddant-rachha/blog-components@1.0.0/dist/bundle.js"
+          src="https://unpkg.com/@siddant-rachha/blog-components/dist/bundle.js"
         ></Script>
       </head>
       <body>
