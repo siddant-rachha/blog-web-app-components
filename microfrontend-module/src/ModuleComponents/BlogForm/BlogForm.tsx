@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
@@ -59,6 +59,15 @@ export const BlogForm: React.FC<Props> = ({
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    setFormData(prevState => ({
+      ...prevState,
+      name,
+      title,
+      desc,
+    }));
+  }, [name, title, desc]);
 
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>
