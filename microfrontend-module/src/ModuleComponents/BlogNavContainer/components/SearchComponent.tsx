@@ -50,14 +50,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 type Props = {
-  handleSearchItem: (item: string) => void;
-  searchItems: string[];
+  handleSearchItem: (item: { id: string; title: string }) => void;
+  searchItems: { id: string; title: string }[] | [];
   handleSearch: (item: string) => void;
 };
 
 export const SearchComponent: React.FC<Props> = ({
   handleSearchItem,
-  searchItems,
+  searchItems = [],
   handleSearch,
 }) => {
   const [isListOpen, setListOpen] = useState(false);
@@ -70,7 +70,7 @@ export const SearchComponent: React.FC<Props> = ({
     }
   };
 
-  const handleSearchItemClick = (item: string) => {
+  const handleSearchItemClick = (item: { id: string; title: string }) => {
     handleSearchItem(item);
     setListOpen(false);
     EventEmitter(EventName.handleSearchItem, item);
@@ -130,14 +130,14 @@ export const SearchComponent: React.FC<Props> = ({
           {searchItems.map((value, i) => (
             <ListItem key={i} sx={{ borderBottom: '0.5px solid gray' }}>
               <ListItemText
-                primary={value}
+                primary={value.title}
                 sx={{
                   color: 'black',
                   cursor: 'pointer',
                   marginLeft: '16px',
                 }}
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                onClick={e => handleSearchItemClick(value)}
+                onClick={e => handleSearchItemClick({ ...value })}
               />
             </ListItem>
           ))}

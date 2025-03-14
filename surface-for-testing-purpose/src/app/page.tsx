@@ -58,7 +58,7 @@ export default function Home() {
   const handleAvatarItem = (item: string) => {
     console.log(item);
   };
-  const handleSearchItem = (item: string) => {
+  const handleSearchItem = (item: { id: string; title: string }) => {
     console.log(item);
   };
 

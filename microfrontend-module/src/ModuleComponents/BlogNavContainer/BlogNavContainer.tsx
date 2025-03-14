@@ -17,11 +17,11 @@ type Props = {
   navItems: string[];
   navActive: string;
   avatarItems: string[];
-  searchItems: string[];
+  searchItems: { id: string; title: string }[];
   avatarName: string;
   handleNavItem: (item: string) => void;
   handleAvatarItem: (item: string) => void;
-  handleSearchItem: (item: string) => void;
+  handleSearchItem: (item: { id: string; title: string }) => void;
   handleSearchInput: (item: string) => void;
 };
 
