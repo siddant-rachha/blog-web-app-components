@@ -8,7 +8,6 @@ import CloudUpload from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { EventName } from '../../utils/EventEmitter/constants';
 import { EventEmitter } from '../../utils/EventEmitter/EventEmitter';
-import { ImageToBase64 } from '../../utils/ImageToBase64/ImageToBase64';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -26,9 +25,9 @@ type Props = {
   name?: string;
   title?: string;
   desc?: string;
-  base64Image?: string;
+  imageFile?: File | null;
   handleFormSubmit: (formData: {
-    base64Image: string | null;
+    imageFile: File | null;
     title: string;
     desc: string;
     name: string;
@@ -39,7 +38,7 @@ export const BlogForm: React.FC<Props> = ({
   name = '',
   title = '',
   desc = '',
-  base64Image = null,
+  imageFile = null,
   handleFormSubmit,
 }) => {
   const [formData, setFormData] = useState({
@@ -48,9 +47,8 @@ export const BlogForm: React.FC<Props> = ({
     desc: desc,
   });
 
-  const [base64ImageState, setBase64ImageState] = useState<string | null>(
-    base64Image
-  );
+  const [imageFileState, setImageFileState] = useState<File | null>(imageFile);
+  const [previewImage, setPreviewImage] = useState<string>();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -73,8 +71,11 @@ export const BlogForm: React.FC<Props> = ({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (event.target.files && event.target.files[0]) {
-      const string = await ImageToBase64(event.target.files[0]);
-      setBase64ImageState(string);
+      const file = event.target.files[0];
+      setImageFileState(file);
+      if (file) {
+        setPreviewImage(URL.createObjectURL(file));
+      } // Set preview image
     }
   };
 
@@ -82,7 +83,7 @@ export const BlogForm: React.FC<Props> = ({
     event.preventDefault();
     const completeData = {
       ...formData,
-      base64Image: base64ImageState,
+      imageFile: imageFileState,
     };
 
     handleFormSubmit(completeData);
@@ -160,16 +161,21 @@ export const BlogForm: React.FC<Props> = ({
             <VisuallyHiddenInput
               type="file"
               onChange={event => handleImageChange(event)}
-              multiple
+              accept="image/*"
             />
           </Button>
-          {base64ImageState ? (
+          {imageFileState ? (
             <Box
               component="img"
-              src={base64ImageState}
-              alt="Uploded image"
-              height="100"
-              sx={{ width: 'auto', height: '100px', borderRadius: 2, m: 2 }}
+              src={previewImage}
+              alt="Uploaded Preview"
+              sx={{
+                width: 'auto',
+                height: '100px',
+                borderRadius: 2,
+                mt: 2,
+                boxShadow: 1,
+              }}
             />
           ) : (
             <Typography fontStyle="italic" variant="caption">

@@ -1,6 +1,6 @@
 {
   "name": "@siddant-rachha/blog-components",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "main": "dist/ModuleComponents/index.js",
   "types": "dist/ModuleComponents/index.d.ts",
   "type": "module",
