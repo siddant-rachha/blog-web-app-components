@@ -66,6 +66,7 @@ export const SearchComponent: React.FC<Props> = ({
   const [isListOpen, setListOpen] = useState(false);
   const boxRef = useRef<HTMLDivElement | null>(null);
   const [boxPosition, setBoxPosition] = useState({ x: 0 });
+  const [searchString, setSearchString] = useState('');
 
   const handleClickOutside = (event: MouseEvent) => {
     if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
@@ -105,6 +106,7 @@ export const SearchComponent: React.FC<Props> = ({
           setListOpen(true);
         }}
         onChange={e => {
+          setSearchString(e.target.value);
           handleSearch(e.target.value);
           EventEmitter(EventName.handleSearchInput, e.target.value);
         }}
@@ -144,7 +146,7 @@ export const SearchComponent: React.FC<Props> = ({
               />
             </ListItem>
           ))}
-          {!searchItems.length && !loading && (
+          {!searchItems.length && searchString.length >= 3 && !loading && (
             <ListItem sx={{ borderBottom: '0.5px solid gray' }}>
               <ListItemText
                 primary={'No results'}
