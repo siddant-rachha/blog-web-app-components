@@ -12,13 +12,15 @@ export const Filters = ({
   filter = [],
   handleFilter,
   width,
+  defaultValue,
 }: {
   type: 'Filter by' | 'Per page';
   filter: string[];
   handleFilter: ({ type, item }: { type: string; item: string }) => void;
   width: number;
+  defaultValue: string;
 }) => {
-  const [filterItem, setFilterItem] = React.useState('');
+  const [filterItem, setFilterItem] = React.useState(defaultValue);
 
   const handleChange = (event: SelectChangeEvent) => {
     setFilterItem(event.target.value as string);

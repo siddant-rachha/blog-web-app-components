@@ -96,6 +96,12 @@ export const BlogList: React.FC<Props> = ({
     const endIndex = startIndex + Number(blogPerPage);
 
     setPerPageItems(blogPosts.slice(startIndex, endIndex));
+
+    // Scroll to the top when pagination changes
+    window.scrollTo({
+      top: document.getElementById('top-section')?.offsetTop || 0,
+      behavior: 'smooth',
+    });
   };
 
   useEffect(() => {
@@ -104,11 +110,17 @@ export const BlogList: React.FC<Props> = ({
 
     // Reset to first page when blogPosts change
     setCurrentPage(1);
-    handlePagination(1);
+    const startIndex = 0;
+    const endIndex = Number(blogPerPage);
+    setPerPageItems(blogPosts.slice(startIndex, endIndex));
   }, [blogPosts, blogPerPage]);
 
+  if (!blogPosts.length) {
+    return null;
+  }
+
   return (
-    <Box display={'flex'} flexDirection={'column'}>
+    <Box id="top-section" display={'flex'} flexDirection={'column'}>
       <Box
         sx={{
           p: { xs: 2, sm: 2, md: 4 },
@@ -121,104 +133,101 @@ export const BlogList: React.FC<Props> = ({
           filter={blogFilter}
           handleFilter={handleFilterSelect}
           type="Filter by"
+          defaultValue={blogFilter[0]}
         />
 
         <Grid container spacing={4}>
-          {!blogPosts.length ? (
-            <h4>No Blog Posts</h4>
-          ) : (
-            perPageItems.map(post => (
-              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={post.id}>
-                <StyledCard>
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image={post.imgSrc}
-                    alt={post.title}
-                    sx={{ objectFit: 'cover' }}
-                  />
-                  <CardContent
-                    sx={{
-                      flexGrow: 1,
-                      display: 'flex',
-                      flexDirection: 'column',
-                    }}
-                  >
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <Avatar
-                        src={post.avatarSrc}
-                        alt={post.author}
-                        sx={{ width: 40, height: 40, mr: 1 }}
-                      />
-                      <Box
-                        sx={{
-                          width: '100%',
-                          display: 'flex',
-                          alignItems: 'center',
-                        }}
-                      >
-                        <Box>
-                          <Typography variant="subtitle2" color="text.primary">
-                            {post.author}
-                          </Typography>
-                          <Typography variant="caption" color="text.secondary">
-                            {post.date}
-                          </Typography>
-                        </Box>
-                        {post.writePermission && (
-                          <Box
-                            marginLeft="auto"
-                            sx={{
-                              display: 'flex',
-                              justifyContent: 'flex-end',
-                              alignItems: 'center',
-                            }}
-                          >
-                            <Button
-                              sx={{ minWidth: 0 }}
-                              onClick={() =>
-                                handleCardActionClick(post.id, 'edit')
-                              }
-                            >
-                              <EditOutlined />
-                            </Button>
-                            <Button
-                              sx={{ minWidth: 0 }}
-                              onClick={() =>
-                                handleCardActionClick(post.id, 'del')
-                              }
-                            >
-                              <DeleteOutline color="error" />
-                            </Button>
-                          </Box>
-                        )}
+          {perPageItems.map(post => (
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={post.id}>
+              <StyledCard>
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={post.imgSrc}
+                  alt={post.title}
+                  sx={{ objectFit: 'cover' }}
+                />
+                <CardContent
+                  sx={{
+                    flexGrow: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <Avatar
+                      src={post.avatarSrc}
+                      alt={post.author}
+                      sx={{ width: 40, height: 40, mr: 1 }}
+                    />
+                    <Box
+                      sx={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Box>
+                        <Typography variant="subtitle2" color="text.primary">
+                          {post.author}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {post.date}
+                        </Typography>
                       </Box>
+                      {post.writePermission && (
+                        <Box
+                          marginLeft="auto"
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Button
+                            sx={{ minWidth: 0 }}
+                            onClick={() =>
+                              handleCardActionClick(post.id, 'edit')
+                            }
+                          >
+                            <EditOutlined />
+                          </Button>
+                          <Button
+                            sx={{ minWidth: 0 }}
+                            onClick={() =>
+                              handleCardActionClick(post.id, 'del')
+                            }
+                          >
+                            <DeleteOutline color="error" />
+                          </Button>
+                        </Box>
+                      )}
                     </Box>
-                    <Typography variant="h6" gutterBottom component="h2">
-                      {post.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ mb: 2 }}
-                    >
-                      {post.desc}
-                    </Typography>
+                  </Box>
+                  <Typography variant="h6" gutterBottom component="h2">
+                    {post.title}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mb: 2 }}
+                  >
+                    {post.desc}
+                  </Typography>
 
-                    <ReadMoreButton
-                      variant="contained"
-                      color="primary"
-                      sx={{ borderRadius: 2 }}
-                      aria-label={`Read more about ${post.title}`}
-                      onClick={() => handleCardActionClick(post.id, 'read')}
-                    >
-                      Read More
-                    </ReadMoreButton>
-                  </CardContent>
-                </StyledCard>
-              </Grid>
-            ))
-          )}
+                  <ReadMoreButton
+                    variant="contained"
+                    color="primary"
+                    sx={{ borderRadius: 2 }}
+                    aria-label={`Read more about ${post.title}`}
+                    onClick={() => handleCardActionClick(post.id, 'read')}
+                  >
+                    Read More
+                  </ReadMoreButton>
+                </CardContent>
+              </StyledCard>
+            </Grid>
+          ))}
         </Grid>
         <Box
           mt={4}
@@ -242,6 +251,7 @@ export const BlogList: React.FC<Props> = ({
             filter={paginationFilter}
             handleFilter={handleFilterSelect}
             type="Per page"
+            defaultValue={blogPerPage}
           />
         </Box>
       </Box>

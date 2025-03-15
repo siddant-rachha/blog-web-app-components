@@ -129,6 +129,7 @@ export default function Home() {
           handleSearchItem={handleSearchItem}
           handleSearchInput={handleSearchInput}
           avatarName="Anonymous"
+          searchItemLoading={false}
         >
           <h1>These are Module components</h1>
 

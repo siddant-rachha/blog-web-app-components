@@ -18,11 +18,11 @@ export default function RootLayout({
         <Script
           type="module"
           // for local testing
-          src="http://localhost:5500/microfrontend-module/dist/bundle.js"
+          // src="http://localhost:5500/microfrontend-module/dist/bundle.js"
 
           //  npm published bundle
           // src="https://unpkg.com/@siddant-rachha/blog-components/dist/bundle.js"
-          // src="https://cdn.jsdelivr.net/npm/@siddant-rachha/blog-components/dist/bundle.js"
+          src="https://cdn.jsdelivr.net/npm/@siddant-rachha/blog-components/dist/bundle.js"
         ></Script>
       </head>
       <body>
