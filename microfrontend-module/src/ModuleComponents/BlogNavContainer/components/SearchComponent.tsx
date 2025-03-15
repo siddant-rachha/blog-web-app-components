@@ -8,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import { EventEmitter } from '../../../utils/EventEmitter/EventEmitter';
 import { EventName } from '../../../utils/EventEmitter/constants';
+import { CircularProgress } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -24,11 +25,11 @@ const Search = styled('div')(({ theme }) => ({
     width: 'auto',
   },
   flexGrow: 1,
-  maxWidth: '50%',
+  maxWidth: '60%',
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
+  padding: theme.spacing(0, 1),
   height: '100%',
   position: 'absolute',
   pointerEvents: 'none',
@@ -42,7 +43,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: `calc(1em + ${theme.spacing(2)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
   },
@@ -52,12 +53,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 type Props = {
   handleSearchItem: (item: { id: string; title: string }) => void;
   searchItems: { id: string; title: string }[] | [];
+  loading: boolean;
   handleSearch: (item: string) => void;
 };
 
 export const SearchComponent: React.FC<Props> = ({
   handleSearchItem,
   searchItems = [],
+  loading,
   handleSearch,
 }) => {
   const [isListOpen, setListOpen] = useState(false);
@@ -96,8 +99,8 @@ export const SearchComponent: React.FC<Props> = ({
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ 'aria-label': 'search' }}
+        placeholder="Search min 3 chars…"
+        inputProps={{ 'aria-label': 'search', maxLength: 50 }}
         onClick={() => {
           setListOpen(true);
         }}
@@ -132,7 +135,7 @@ export const SearchComponent: React.FC<Props> = ({
               <ListItemText
                 primary={value.title}
                 sx={{
-                  color: 'black',
+                  color: 'blue',
                   cursor: 'pointer',
                   marginLeft: '16px',
                 }}
@@ -141,6 +144,21 @@ export const SearchComponent: React.FC<Props> = ({
               />
             </ListItem>
           ))}
+          {!searchItems.length && !loading && (
+            <ListItem sx={{ borderBottom: '0.5px solid gray' }}>
+              <ListItemText
+                primary={'No results'}
+                sx={{
+                  color: 'black',
+                  cursor: 'pointer',
+                  marginLeft: '16px',
+                }}
+              />
+            </ListItem>
+          )}
+          {loading && (
+            <CircularProgress style={{ marginLeft: '45%' }} size={'1.5rem'} />
+          )}
         </Paper>
       </Box>
     </Search>

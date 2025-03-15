@@ -9,6 +9,7 @@ import { DrawerComponent } from './components/DrawerComponent';
 import { SearchComponent } from './components/SearchComponent';
 import { AvatarMenu } from './components/AvatarMenu';
 import { NavBarItems } from './components/NavBarItems';
+import { Typography } from '@mui/material';
 
 type Props = {
   children: React.ReactNode | null;
@@ -19,6 +20,7 @@ type Props = {
   avatarItems: string[];
   searchItems: { id: string; title: string }[];
   avatarName: string;
+  searchItemLoading: boolean;
   handleNavItem: (item: string) => void;
   handleAvatarItem: (item: string) => void;
   handleSearchItem: (item: { id: string; title: string }) => void;
@@ -34,6 +36,7 @@ export const BlogNavContainer: React.FC<Props> = ({
   avatarItems = [],
   searchItems = [],
   avatarName,
+  searchItemLoading = false,
   handleNavItem,
   handleAvatarItem,
   handleSearchItem,
@@ -56,7 +59,7 @@ export const BlogNavContainer: React.FC<Props> = ({
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2 }}
+            sx={{ mr: 0 }}
           >
             <MenuIcon />
           </IconButton>
@@ -69,7 +72,7 @@ export const BlogNavContainer: React.FC<Props> = ({
               cursor: 'pointer',
             }}
           >
-            <img src={logoSrc} alt="Logo" height={60} />
+            <img src={logoSrc} alt="Logo" height={40} />
           </Box>
 
           {/* search component */}
@@ -77,6 +80,7 @@ export const BlogNavContainer: React.FC<Props> = ({
             handleSearchItem={handleSearchItem}
             searchItems={searchItems}
             handleSearch={handleSearchInput}
+            loading={searchItemLoading}
           />
 
           {/* navbar with item links */}
@@ -97,6 +101,16 @@ export const BlogNavContainer: React.FC<Props> = ({
             avatarName={avatarName}
           />
         </Toolbar>
+        <Typography
+          variant={'subtitle2'}
+          fontSize={'0.5rem'}
+          position={'absolute'}
+          right={'0'}
+          bottom={'0'}
+          mr={2}
+        >
+          @{avatarName}
+        </Typography>
       </AppBar>
 
       {/* drawer component for mobile */}
@@ -111,7 +125,11 @@ export const BlogNavContainer: React.FC<Props> = ({
       />
 
       {/* main section */}
-      <Box component="main" width="100%" sx={{ p: 3 }}>
+      <Box
+        component="main"
+        width="100%"
+        sx={{ padding: { xs: 1, sm: 2, md: 3 } }}
+      >
         <Toolbar />
         {children}
       </Box>

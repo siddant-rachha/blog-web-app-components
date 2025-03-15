@@ -8,6 +8,10 @@ import CloudUpload from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { EventName } from '../../utils/EventEmitter/constants';
 import { EventEmitter } from '../../utils/EventEmitter/EventEmitter';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
+const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB in bytes
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -67,19 +71,26 @@ export const BlogForm: React.FC<Props> = ({
     }));
   }, [name, title, desc]);
 
-  const handleImageChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
+
+      if (file.size > MAX_FILE_SIZE) {
+        alert('Image size should not exceed 1MB.');
+        return;
+      }
+
       setImageFileState(file);
-      if (file) {
-        setPreviewImage(URL.createObjectURL(file));
-      } // Set preview image
+      setPreviewImage(URL.createObjectURL(file));
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleRemoveImage = () => {
+    setImageFileState(null);
+    setPreviewImage(undefined);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const completeData = {
       ...formData,
@@ -94,7 +105,7 @@ export const BlogForm: React.FC<Props> = ({
     <Box
       sx={{
         p: { xs: 2, sm: 2, md: 4 },
-        background: 'linear-gradient(145deg, #f6f8fc 0%, #f0f4f8 100%)',
+        background: '#f0f4f8',
         borderRadius: '16px',
         margin: 'auto',
       }}
@@ -104,9 +115,7 @@ export const BlogForm: React.FC<Props> = ({
         onSubmit={handleSubmit}
         variant="elevation"
         elevation={4}
-        sx={{
-          p: 3,
-        }}
+        sx={{ p: 3 }}
       >
         <Typography variant="h4" gutterBottom>
           Create Blog Post
@@ -120,13 +129,18 @@ export const BlogForm: React.FC<Props> = ({
           fullWidth
           margin="normal"
           required
+          disabled
         />
 
         <TextField
           label="Title of Blog"
           name="title"
           value={formData.title}
-          onChange={handleChange}
+          onChange={e =>
+            e.target.value.length <= 50 &&
+            handleChange(e as React.ChangeEvent<HTMLInputElement>)
+          }
+          helperText={`${formData.title.length}/50`}
           fullWidth
           margin="normal"
           required
@@ -136,47 +150,62 @@ export const BlogForm: React.FC<Props> = ({
           label="Description of Blog"
           name="desc"
           value={formData.desc}
-          onChange={handleChange}
+          onChange={e =>
+            e.target.value.length <= 10000 &&
+            handleChange(e as React.ChangeEvent<HTMLInputElement>)
+          }
+          helperText={`${formData.desc.length}/10000`}
           fullWidth
           margin="normal"
           required
           multiline
           rows={12}
         />
+
         <Box
           display="flex"
-          width="100%"
           flexDirection="column"
-          alignItems={'flex-start'}
+          alignItems="flex-start"
+          width="100%"
+          mt={2}
         >
           <Button
             component="label"
-            role={undefined}
             variant="outlined"
-            tabIndex={-1}
             startIcon={<CloudUpload />}
-            sx={{ width: '50%' }}
           >
-            <Typography variant="caption">Upload files</Typography>
+            <Typography variant="caption" fontSize={'0.6rem'}>
+              Upload image (Max 1MB)
+            </Typography>
             <VisuallyHiddenInput
               type="file"
-              onChange={event => handleImageChange(event)}
               accept="image/*"
+              onChange={handleImageChange}
             />
           </Button>
+
           {imageFileState ? (
-            <Box
-              component="img"
-              src={previewImage}
-              alt="Uploaded Preview"
-              sx={{
-                width: 'auto',
-                height: '100px',
-                borderRadius: 2,
-                mt: 2,
-                boxShadow: 1,
-              }}
-            />
+            <Box display="flex" alignItems="center" mt={2}>
+              <Box
+                component="img"
+                src={previewImage}
+                alt="Preview"
+                sx={{
+                  width: 'auto',
+                  height: '100px',
+                  borderRadius: 2,
+                  boxShadow: 1,
+                  mr: 1,
+                }}
+              />
+              <IconButton
+                onClick={handleRemoveImage}
+                color="error"
+                sx={{ height: '40px', width: '40px' }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </Box>
           ) : (
             <Typography fontStyle="italic" variant="caption">
               Optional
