@@ -108,6 +108,7 @@ export const BlogNavContainer: React.FC<Props> = ({
           right={'0'}
           bottom={'0'}
           mr={2}
+          color="textDisabled"
         >
           @{avatarName}
         </Typography>

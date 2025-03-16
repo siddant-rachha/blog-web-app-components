@@ -30,6 +30,7 @@ type Props = {
   title?: string;
   desc?: string;
   imageFile?: File | null;
+  resetForm: boolean;
   handleFormSubmit: (formData: {
     imageFile: File | null;
     title: string;
@@ -43,6 +44,7 @@ export const BlogForm: React.FC<Props> = ({
   title = '',
   desc = '',
   imageFile = null,
+  resetForm = false,
   handleFormSubmit,
 }) => {
   const [formData, setFormData] = useState({
@@ -71,6 +73,16 @@ export const BlogForm: React.FC<Props> = ({
       desc,
     }));
   }, [name, title, desc]);
+
+  // Reset form when resetForm is true
+  useEffect(() => {
+    if (resetForm) {
+      setFormData({ ...formData, title: '', desc: '' });
+      setImageFileState(null);
+      setPreviewImage(undefined);
+      setImageRatio(null);
+    }
+  }, [resetForm]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
