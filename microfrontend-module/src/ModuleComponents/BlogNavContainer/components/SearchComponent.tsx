@@ -8,7 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import { EventEmitter } from '../../../utils/EventEmitter/EventEmitter';
 import { EventName } from '../../../utils/EventEmitter/constants';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,8 +52,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 type Props = {
   handleSearchItem: (item: { id: string; title: string }) => void;
-  searchItems: { id: string; title: string }[] | [];
+  searchItems:
+    | {
+        id: string;
+        title: string;
+        desc: string;
+        imgUrl: string;
+        author: string;
+      }[]
+    | [];
   loading: boolean;
+  noResults: boolean;
   handleSearch: (item: string) => void;
 };
 
@@ -61,12 +70,12 @@ export const SearchComponent: React.FC<Props> = ({
   handleSearchItem,
   searchItems = [],
   loading,
+  noResults,
   handleSearch,
 }) => {
   const [isListOpen, setListOpen] = useState(false);
   const boxRef = useRef<HTMLDivElement | null>(null);
   const [boxPosition, setBoxPosition] = useState({ x: 0 });
-  const [searchString, setSearchString] = useState('');
 
   const handleClickOutside = (event: MouseEvent) => {
     if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
@@ -106,7 +115,6 @@ export const SearchComponent: React.FC<Props> = ({
           setListOpen(true);
         }}
         onChange={e => {
-          setSearchString(e.target.value);
           handleSearch(e.target.value);
           EventEmitter(EventName.handleSearchInput, e.target.value);
         }}
@@ -133,20 +141,47 @@ export const SearchComponent: React.FC<Props> = ({
           }}
         >
           {searchItems.map((value, i) => (
-            <ListItem key={i} sx={{ borderBottom: '0.5px solid gray' }}>
-              <ListItemText
-                primary={value.title}
-                sx={{
-                  color: 'blue',
-                  cursor: 'pointer',
-                  marginLeft: '16px',
-                }}
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                onClick={e => handleSearchItemClick({ ...value })}
-              />
+            <ListItem
+              key={i}
+              sx={{
+                borderBottom: '0.5px solid gray',
+                display: 'flex',
+                flexDirection: 'column',
+                px: 1,
+                py: 0,
+              }}
+            >
+              <Box
+                display={'flex'}
+                flexDirection={'row'}
+                alignItems={'center'}
+                mr={'auto'}
+              >
+                <img src={value.imgUrl} alt={'img'} width={'38px'} />
+                <ListItemText
+                  secondary={value?.desc?.slice(0, 75) + '...'}
+                  primary={value.title}
+                  sx={{
+                    color: 'blue',
+                    cursor: 'pointer',
+                    margin: 0,
+                    marginLeft: '8px',
+                  }}
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                  onClick={e => handleSearchItemClick({ ...value })}
+                />
+              </Box>
+              <Typography
+                variant="subtitle2"
+                fontSize={'0.6rem'}
+                color="textSecondary"
+                mr={'auto'}
+              >
+                Author: @{value?.author}
+              </Typography>
             </ListItem>
           ))}
-          {!searchItems.length && searchString.length >= 3 && !loading && (
+          {noResults && (
             <ListItem sx={{ borderBottom: '0.5px solid gray' }}>
               <ListItemText
                 primary={'No results'}

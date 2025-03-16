@@ -53,24 +53,46 @@ const blogPosts = Array.from({ length: 25 }, (_, index) => {
 });
 
 const searchItems = [
-  { id: '1', title: 'The Future of JavaScript Frameworks' },
-  { id: '2', title: 'Mastering React Performance Optimization' },
-  { id: '3', title: 'Building Scalable Web Applications with Next.js' },
-  { id: '4', title: 'State Management in Modern Web Development' },
-  { id: '5', title: 'Understanding TypeScript: Benefits and Best Practices' },
-  { id: '6', title: 'Progressive Web Apps: Are They the Future?' },
-  { id: '7', title: 'The Role of AI in Web Development' },
-  { id: '8', title: 'Optimizing SEO for Single Page Applications' },
-  { id: '9', title: 'GraphQL vs REST: Which API Style is Better?' },
   {
-    id: '10',
-    title: 'Microfrontends: The Future of Scalable Frontend Architecture',
+    id: '1',
+    title: 'The Future of JavaScript Frameworks',
+    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor risus ut tellus tincidunt, et dignissim erat vehicula.',
+    imgUrl:
+      'https://plus.unsplash.com/premium_photo-1740708549031-fd00d8821c5b?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    author: 'Siddant Rachha',
   },
-  { id: '11', title: 'WebAssembly: Unlocking New Performance Potential' },
-  { id: '12', title: 'Designing Accessible Websites for All Users' },
-  { id: '13', title: 'JAMstack: A New Approach to Web Development' },
-  { id: '14', title: 'The Evolution of CSS: Grid vs Flexbox' },
-  { id: '15', title: 'Dark Mode vs Light Mode: UX Considerations' },
+  {
+    id: '2',
+    title: 'Mastering React Performance Optimization',
+    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor risus ut tellus tincidunt, et dignissim erat vehicula.',
+    imgUrl:
+      'https://plus.unsplash.com/premium_photo-1740708549031-fd00d8821c5b?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    author: 'Siddant Rachha',
+  },
+  {
+    id: '3',
+    title: 'Building Scalable Web Applications with Next.js',
+    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor risus ut tellus tincidunt, et dignissim erat vehicula.',
+    imgUrl:
+      'https://plus.unsplash.com/premium_photo-1740708549031-fd00d8821c5b?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    author: 'Siddant Rachha',
+  },
+  {
+    id: '4',
+    title: 'State Management in Modern Web Development',
+    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor risus ut tellus tincidunt, et dignissim erat vehicula.',
+    imgUrl:
+      'https://plus.unsplash.com/premium_photo-1740708549031-fd00d8821c5b?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    author: 'Siddant Rachha',
+  },
+  {
+    id: '5',
+    title: 'Understanding TypeScript: Benefits and Best Practices',
+    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor risus ut tellus tincidunt, et dignissim erat vehicula.',
+    imgUrl:
+      'https://plus.unsplash.com/premium_photo-1740708549031-fd00d8821c5b?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    author: 'Siddant Rachha',
+  },
 ];
 
 const blogPost = {

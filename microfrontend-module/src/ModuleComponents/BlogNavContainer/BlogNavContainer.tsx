@@ -18,9 +18,16 @@ type Props = {
   navItems: string[];
   navActive: string;
   avatarItems: string[];
-  searchItems: { id: string; title: string }[];
+  searchItems: {
+    id: string;
+    title: string;
+    desc: string;
+    imgUrl: string;
+    author: string;
+  }[];
   avatarName: string;
   searchItemLoading: boolean;
+  noResults: boolean;
   handleNavItem: (item: string) => void;
   handleAvatarItem: (item: string) => void;
   handleSearchItem: (item: { id: string; title: string }) => void;
@@ -37,6 +44,7 @@ export const BlogNavContainer: React.FC<Props> = ({
   searchItems = [],
   avatarName,
   searchItemLoading = false,
+  noResults = false,
   handleNavItem,
   handleAvatarItem,
   handleSearchItem,
@@ -77,6 +85,7 @@ export const BlogNavContainer: React.FC<Props> = ({
 
           {/* search component */}
           <SearchComponent
+            noResults={noResults}
             handleSearchItem={handleSearchItem}
             searchItems={searchItems}
             handleSearch={handleSearchInput}

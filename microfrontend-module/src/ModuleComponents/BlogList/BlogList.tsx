@@ -212,7 +212,7 @@ export const BlogList: React.FC<Props> = ({
                     color="text.secondary"
                     sx={{ mb: 2 }}
                   >
-                    {post.desc}
+                    {post.desc.slice(0, 150) + '...'}
                   </Typography>
 
                   <ReadMoreButton

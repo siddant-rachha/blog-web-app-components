@@ -130,6 +130,7 @@ export default function Home() {
           handleSearchInput={handleSearchInput}
           avatarName="Anonymous"
           searchItemLoading={false}
+          noResults={false}
         >
           <h1>These are Module components</h1>
 
@@ -149,6 +150,7 @@ export default function Home() {
             title="i am title"
             desc="i am desc"
             handleFormSubmit={handleFormSubmit}
+            resetForm={false}
           />
         </BlogNavContainer>
       </Box>

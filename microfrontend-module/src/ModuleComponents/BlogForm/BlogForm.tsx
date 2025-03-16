@@ -179,10 +179,10 @@ export const BlogForm: React.FC<Props> = ({
           name="desc"
           value={formData.desc}
           onChange={e =>
-            e.target.value.length <= 10000 &&
+            e.target.value.length <= 5000 &&
             handleChange(e as React.ChangeEvent<HTMLInputElement>)
           }
-          helperText={`${formData.desc.length}/10000`}
+          helperText={`${formData.desc.length}/5000`}
           fullWidth
           margin="normal"
           required
