@@ -6,7 +6,7 @@ const BlogFormWC = r2wc(BlogForm, {
     desc: 'string',
     name: 'string',
     title: 'string',
-    imageFile: 'string',
+    imageUrl: 'string',
     resetForm: 'boolean',
   },
   events: { handleFormSubmit: { bubbles: true } },

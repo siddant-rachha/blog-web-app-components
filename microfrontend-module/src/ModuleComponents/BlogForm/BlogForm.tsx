@@ -29,10 +29,10 @@ type Props = {
   name?: string;
   title?: string;
   desc?: string;
-  imageFile?: File | null;
+  imageUrl?: string;
   resetForm: boolean;
   handleFormSubmit: (formData: {
-    imageFile: File | null;
+    image: File | null | string;
     title: string;
     desc: string;
     name: string;
@@ -43,7 +43,7 @@ export const BlogForm: React.FC<Props> = ({
   name = '',
   title = '',
   desc = '',
-  imageFile = null,
+  imageUrl = '',
   resetForm = false,
   handleFormSubmit,
 }) => {
@@ -53,7 +53,9 @@ export const BlogForm: React.FC<Props> = ({
     desc: desc,
   });
 
-  const [imageFileState, setImageFileState] = useState<File | null>(imageFile);
+  const [imageUrlState, setImageUrlState] = useState(imageUrl);
+  console.log(imageUrl);
+  const [imageFileState, setImageFileState] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string>();
   const [imageRatio, setImageRatio] = useState<string | null>(null);
 
@@ -84,8 +86,21 @@ export const BlogForm: React.FC<Props> = ({
     }
   }, [resetForm]);
 
+  useEffect(() => {
+    // calculate image ratio of image URL
+    if (imageUrlState) {
+      const img = new Image();
+      img.src = imageUrlState;
+      img.onload = () => {
+        const ratio = (img.width / img.height).toFixed(2);
+        setImageRatio(ratio);
+      };
+    }
+  }, [imageUrlState]);
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
+      setImageUrlState('');
       const file = event.target.files[0];
 
       if (file.size > MAX_FILE_SIZE) {
@@ -106,6 +121,7 @@ export const BlogForm: React.FC<Props> = ({
   };
 
   const handleRemoveImage = () => {
+    setImageUrlState('');
     setImageFileState(null);
     setPreviewImage(undefined);
     setImageRatio(null);
@@ -122,7 +138,7 @@ export const BlogForm: React.FC<Props> = ({
     event.preventDefault();
     const completeData = {
       ...formData,
-      imageFile: imageFileState,
+      image: imageFileState,
     };
 
     handleFormSubmit(completeData);
@@ -146,7 +162,7 @@ export const BlogForm: React.FC<Props> = ({
         sx={{ p: 3 }}
       >
         <Typography variant="h4" gutterBottom>
-          Create Blog Post
+          {name && desc ? 'Edit Blog Post' : 'Create Blog Post'}
         </Typography>
 
         <TextField
@@ -215,7 +231,7 @@ export const BlogForm: React.FC<Props> = ({
             />
           </Button>
 
-          {imageFileState ? (
+          {imageFileState || imageUrlState ? (
             <Box
               display="flex"
               flexDirection="column"
@@ -228,7 +244,7 @@ export const BlogForm: React.FC<Props> = ({
               <Box display={'flex'}>
                 <Box
                   component="img"
-                  src={previewImage}
+                  src={imageUrlState || previewImage}
                   alt="Preview"
                   sx={{
                     width: 'auto',
@@ -260,7 +276,7 @@ export const BlogForm: React.FC<Props> = ({
             fullWidth
             sx={{ mt: 2 }}
           >
-            Create Post
+            {name && desc ? 'Update Post' : 'Create Post'}
           </Button>
         </Box>
       </Paper>
