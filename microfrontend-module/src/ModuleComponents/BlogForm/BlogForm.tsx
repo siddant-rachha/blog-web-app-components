@@ -138,7 +138,7 @@ export const BlogForm: React.FC<Props> = ({
     event.preventDefault();
     const completeData = {
       ...formData,
-      image: imageFileState,
+      image: imageUrlState || imageFileState,
     };
 
     handleFormSubmit(completeData);
