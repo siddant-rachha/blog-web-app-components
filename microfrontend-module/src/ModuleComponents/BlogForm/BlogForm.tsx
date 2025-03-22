@@ -54,7 +54,6 @@ export const BlogForm: React.FC<Props> = ({
   });
 
   const [imageUrlState, setImageUrlState] = useState(imageUrl);
-  console.log(imageUrl);
   const [imageFileState, setImageFileState] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string>();
   const [imageRatio, setImageRatio] = useState<string | null>(null);
@@ -79,6 +78,7 @@ export const BlogForm: React.FC<Props> = ({
   // Reset form when resetForm is true
   useEffect(() => {
     if (resetForm) {
+      setImageUrlState('');
       setFormData({ ...formData, title: '', desc: '' });
       setImageFileState(null);
       setPreviewImage(undefined);
