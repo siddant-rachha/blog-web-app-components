@@ -122,7 +122,10 @@ export const BlogPage: React.FC<Props> = ({ blogPost, handleBlogAction }) => {
               )}
             </Box>
 
-            <Typography component="pre" variant="body1" sx={{ mb: 3, mt: 3 }}>
+            <Typography
+              variant="body1"
+              sx={{ mb: 3, mt: 3, whiteSpace: 'pre-wrap' }}
+            >
               {blogPost.desc}
             </Typography>
           </CardContent>
