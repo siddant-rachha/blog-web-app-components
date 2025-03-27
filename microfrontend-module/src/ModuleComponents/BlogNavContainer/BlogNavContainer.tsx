@@ -111,13 +111,14 @@ export const BlogNavContainer: React.FC<Props> = ({
           />
         </Toolbar>
         <Typography
-          variant={'subtitle2'}
+          variant="caption"
           fontSize={'0.5rem'}
           position={'absolute'}
           right={'0'}
           bottom={'0'}
           mr={2}
           color="textDisabled"
+          fontWeight={'600'}
         >
           @{avatarName}
         </Typography>

@@ -24,7 +24,7 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: theme.spacing(3),
     width: 'auto',
   },
-  flexGrow: 1,
+  flexGrow: 0.5,
   maxWidth: '60%',
 }));
 
@@ -124,7 +124,7 @@ export const SearchComponent: React.FC<Props> = ({
         sx={{
           position: 'absolute',
           width: '100vw',
-          maxWidth: '1280px',
+          maxWidth: '900px',
           mt: { xs: 1, sm: 2 },
           left: boxPosition.x,
           display: isListOpen ? 'block' : 'none',
@@ -147,9 +147,12 @@ export const SearchComponent: React.FC<Props> = ({
                 borderBottom: '0.5px solid gray',
                 display: 'flex',
                 flexDirection: 'column',
-                px: 1,
+                px: { xs: 1, sm: 3 },
                 py: 0,
+                cursor: 'pointer',
               }}
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              onClick={e => handleSearchItemClick({ ...value })}
             >
               <Box
                 display={'flex'}
@@ -167,15 +170,13 @@ export const SearchComponent: React.FC<Props> = ({
                     margin: 0,
                     marginLeft: '8px',
                   }}
-                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                  onClick={e => handleSearchItemClick({ ...value })}
                 />
               </Box>
               <Typography
                 variant="subtitle2"
                 fontSize={'0.6rem'}
                 color="textSecondary"
-                mr={'auto'}
+                ml={'auto'}
               >
                 Author: @{value?.author}
               </Typography>

@@ -65,15 +65,10 @@ export const AvatarMenu: React.FC<Props> = ({
       >
         {avatarName && (
           <Box px={2} pb={1}>
-            <Typography fontStyle={'italic'} variant="subtitle2">
-              Logged in as:
+            <Typography variant="body2" color="textSecondary">
+              Profile:
             </Typography>
-            <Typography
-              pb={1}
-              fontStyle={'italic'}
-              variant="subtitle2"
-              fontWeight={'600'}
-            >
+            <Typography fontWeight="400" pb={1}>
               {avatarName}
             </Typography>
             <Divider />

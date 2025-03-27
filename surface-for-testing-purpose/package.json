@@ -17,8 +17,8 @@
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.4.6",
     "@mui/material-nextjs": "^6.4.3",
-    "@siddant-rachha/blog-components": "2.0.10",
-    "next": "15.1.7",
+    "@siddant-rachha/blog-components": "2.0.11",
+    "next": "^15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

@@ -27,6 +27,11 @@ export const Filters = ({
     const filterItem = { type, item: event.target.value };
     handleFilter(filterItem);
     EventEmitter(EventName.handleFilterSelect, filterItem);
+    // Scroll to the top when filter changes
+    window.scrollTo({
+      top: document.getElementById('top-section')?.offsetTop || 0,
+      behavior: 'smooth',
+    });
   };
 
   return (

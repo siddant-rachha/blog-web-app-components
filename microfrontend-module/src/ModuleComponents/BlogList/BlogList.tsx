@@ -16,7 +16,7 @@ import EditOutlined from '@mui/icons-material/EditOutlined';
 import { Filters } from './components/Filters';
 import { EventEmitter } from '../../utils/EventEmitter/EventEmitter';
 import { EventName } from '../../utils/EventEmitter/constants';
-
+import { DeleteModal } from './components/DeleteModal';
 const StyledCard = styled(Card)(() => ({
   height: '100%',
   display: 'flex',
@@ -71,6 +71,13 @@ export const BlogList: React.FC<Props> = ({
   handleFilterSelect,
   handleCardAction,
 }) => {
+  const [perPageItems, setPerPageItems] = useState([] as BlogPost[]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [paginationCount, setPaginationCount] = useState(1);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deletePostId, setDeletePostId] = useState('');
+  const [deletePostTitle, setDeletePostTitle] = useState('');
+
   const handleCardActionClick = (
     id: string,
     action: 'edit' | 'del' | 'read'
@@ -84,10 +91,6 @@ export const BlogList: React.FC<Props> = ({
       action,
     });
   };
-
-  const [perPageItems, setPerPageItems] = useState([] as BlogPost[]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [paginationCount, setPaginationCount] = useState(1);
 
   const handlePagination = (page: number) => {
     setCurrentPage(page);
@@ -121,6 +124,15 @@ export const BlogList: React.FC<Props> = ({
 
   return (
     <Box id="top-section" display={'flex'} flexDirection={'column'}>
+      <DeleteModal
+        open={deleteModalOpen}
+        title={deletePostTitle}
+        onCancel={() => setDeleteModalOpen(false)}
+        onConfirm={() => {
+          handleCardActionClick(deletePostId, 'del');
+          setDeleteModalOpen(false);
+        }}
+      />
       <Box
         sx={{
           p: { xs: 2, sm: 2, md: 4 },
@@ -194,9 +206,12 @@ export const BlogList: React.FC<Props> = ({
                           </Button>
                           <Button
                             sx={{ minWidth: 0 }}
-                            onClick={() =>
-                              handleCardActionClick(post.id, 'del')
-                            }
+                            onClick={() => {
+                              // handleCardActionClick(post.id, 'del')
+                              setDeletePostId(post.id);
+                              setDeleteModalOpen(true);
+                              setDeletePostTitle(post.title);
+                            }}
                           >
                             <DeleteOutline color="error" />
                           </Button>
