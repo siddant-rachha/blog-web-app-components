@@ -177,6 +177,9 @@ export const SearchComponent: React.FC<Props> = ({
                 fontSize={'0.6rem'}
                 color="textSecondary"
                 ml={'auto'}
+                position={'absolute'}
+                bottom={0}
+                right={0}
               >
                 Author: @{value?.author}
               </Typography>
