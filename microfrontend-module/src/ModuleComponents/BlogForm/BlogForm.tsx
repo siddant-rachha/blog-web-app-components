@@ -269,7 +269,7 @@ export const BlogForm: React.FC<Props> = ({
             </Typography>
           )}
 
-          {name.toLowerCase().includes('sid') && (
+          {name.toLowerCase().includes('anonymous') && (
             <Typography
               variant="caption"
               color="textSecondary"
