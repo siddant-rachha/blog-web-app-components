@@ -179,7 +179,7 @@ export const SearchComponent: React.FC<Props> = ({
                 ml={'auto'}
                 position={'absolute'}
                 bottom={0}
-                right={0}
+                right={'1%'}
               >
                 Author: @{value?.author}
               </Typography>
