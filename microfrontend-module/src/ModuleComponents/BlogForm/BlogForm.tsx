@@ -269,6 +269,19 @@ export const BlogForm: React.FC<Props> = ({
             </Typography>
           )}
 
+          {name.toLowerCase().includes('sid') && (
+            <Typography
+              variant="caption"
+              color="textSecondary"
+              fontStyle="italic"
+            >
+              <br />
+              <br />
+              (Note: Anyone has update and delete permissions for anonymous
+              posts.)
+            </Typography>
+          )}
+
           <Button
             type="submit"
             variant="contained"

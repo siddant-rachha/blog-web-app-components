@@ -178,8 +178,11 @@ export const SearchComponent: React.FC<Props> = ({
                 color="textSecondary"
                 ml={'auto'}
                 position={'absolute'}
-                bottom={0}
+                bottom={'8%'}
                 right={'1%'}
+                borderRadius={'5px'}
+                padding={'0 8px'}
+                sx={{ background: '#eaeaea' }}
               >
                 Author: @{value?.author}
               </Typography>
