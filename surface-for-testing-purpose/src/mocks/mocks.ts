@@ -1,4 +1,6 @@
-const blogPosts = Array.from({ length: 25 }, (_, index) => {
+import { BlogPost } from '../../../microfrontend-module/dist/ModuleComponents/BlogList/BlogList';
+
+const blogPosts: BlogPost[] = Array.from({ length: 25 }, (_, index) => {
   const avatarUrls = [
     'https://images.unsplash.com/photo-1494790108377-be9c29b29330',
     'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
@@ -49,6 +51,8 @@ const blogPosts = Array.from({ length: 25 }, (_, index) => {
     imgSrc: imageUrls[index % imageUrls.length], // Deterministic selection
     desc: `This is a blog post about ${titles[index % titles.length]}. It covers key insights and industry trends.`,
     writePermission: index % 2 === 0, // Even indexes have write permission
+    showFavorite: true,
+    isFavorite: index % 2 === 0,
   };
 });
 
