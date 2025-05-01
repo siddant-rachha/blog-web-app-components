@@ -1,4 +1,4 @@
-import { BlogPost } from '../../../microfrontend-module/dist/ModuleComponents/BlogList/BlogList';
+import { BlogPost } from '../../../microfrontend-module/src/ModuleComponents/BlogList/BlogList';
 
 const blogPosts: BlogPost[] = Array.from({ length: 25 }, (_, index) => {
   const avatarUrls = [
