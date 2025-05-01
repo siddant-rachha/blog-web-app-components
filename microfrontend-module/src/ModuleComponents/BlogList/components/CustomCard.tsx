@@ -34,15 +34,17 @@ const ReadMoreButton = styled(Button)(() => ({
   },
 }));
 
-export const CustomCard = ({
-  post,
-  handleCardActionClick,
-}: {
+interface Props {
   post: BlogPost;
   handleCardActionClick: (
     id: string,
     action: 'edit' | 'del' | 'read' | 'fav'
   ) => void;
+}
+
+export const CustomCard: React.FC<Props> = ({
+  post,
+  handleCardActionClick,
 }) => {
   return (
     <StyledCard>
